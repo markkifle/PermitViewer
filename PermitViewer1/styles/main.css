@@ -1,31 +1,124 @@
-body, html {
-    margin: 0;
+body, html
+{
+    margin: 0; 
     height: 100%;
     width: 100%;
 }
 
 /* COMMON STYLES*/
-.view-content h1 {
+.view-content h1
+{
     color: #42454a;
     font-size: 1.8em;
 }
-
-.view-content h1.welcome {
+.view-content h1.welcome
+{
     text-align: center;
 }
-
-.view-content h3 {
+.view-content h3
+{
     color: #42454a;
     font-size: 1.1em;
 }
-
-.view-content p {
+.view-content p
+{
     color: #4a4e54;
     font-size: 1em;
 }
 
+/* left drawer */
+
+#left-drawer .km-navbar, 
+#left-drawer .km-content 
+{
+    color: rgb(255, 255, 255);
+    background-color: rgba(20, 20, 20, 0.90);
+}
+
+#left-drawer .km-group-title
+{
+    background-color: rgba(102, 102, 102, 0.90);
+}
+
+.km-ios #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
+.km-ios #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
+.km-ios #left-drawer .km-listview-link > .km-icon, .km-android #left-drawer .km-listview-link > .km-icon, .km-blackberry #left-drawer .km-listview-link > .km-icon,
+.km-ios #left-drawer .km-list li > .km-icon, .km-android #left-drawer .km-list li > .km-icon, .km-blackberry #left-drawer .km-list li > .km-icon
+{
+    background-color: #4e4e4e;
+    color: #fff;
+}
+
+.km-ios #my-drawer .km-group-title,
+.km-blackberry #my-drawer .km-group-title
+{
+    background-color: #6e6e6e;
+    color: #fff;
+}
+
+.km-drawer-button:before, .km-drawer-button:after { content: "\E077"; }
+.km-search:before, .km-search:after { content: "\E07F"; }
+.km-locate:before, .km-locate:after { content: "\E0B4"; }
+.km-globe:before, .km-globe:after { content: "\E0DB"; }
+.km-chart:before, .km-chart:after { content: "\E050"; }
+.km-settings:before, .km-settings:after { content: "\E0DA"; }
+.km-barchart:before, .km-barchart:after { content: "\E04B"; }
+.km-line:before, .km-line:after { content: "\E04F"; }
+.km-pie:before, .km-pie:after { content: "\E04D"; }
+.km-help:before, .km-help:after { content: "\E0FB"; }
+.km-clear:before, .km-clear:after { content: "\E01D"; }
+/*.km-back:before, .km-back:after { content: "\E013"; }*/
+
+/* loader*/
+.km-ios #loading .km-content
+{
+    background: transparent;
+}
+
+#loading .km-content
+{
+    text-align: center;
+}
+
+#show
+{
+    margin-top: 100px;
+    font-size: 1.2em;
+}
+.km-meego h1.loaderHeading,
+.km-android h1.loaderHeading,
+.km-blackberry h1.loaderHeading
+{
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    width: 1em;
+    left: 50%;
+    height: 1em;
+    top: 50%;
+    font-size: 1.2rem;
+    margin: -.65em 0 0 -.5em;
+}
+
+.km-flat h1.loaderHeading,
+.km-wp h1.loaderHeading
+{
+    display: block;
+}
+
+.km-ios h1.loaderHeading
+{
+    font-size: 1rem;
+}
+.km-meego h1.loaderHeading,
+.km-blackberry h1.loaderHeading
+{
+    font-size: 1.5rem;
+}
+
 /* IMAGE STYLES*/
-.img {
+.img
+{
     background-image: url(../styles/images/icenium.png);
     background-repeat: no-repeat;
     text-align: center;
@@ -33,8 +126,8 @@ body, html {
     height: 193px;
     margin: 0px auto;
 }
-
-.logo {
+.logo
+{
     background-image: url(../styles/images/logo.png);
     background-repeat: no-repeat;
     width: 85px;
@@ -43,26 +136,20 @@ body, html {
 }
 
 /* BUTTON STYLES*/
-.buttonArea {
+.buttonArea
+{
     text-align: center;
 }
-
-.login-button {
-    width: 50%;
+.login-button
+{
+    width: 85%;
     max-width: 300px;
-    font-size: .9em;
-    -webkit-appearance: none;
+    line-height: 1.6em;
 }
 
 /* MAP STYLES*/
-#no-map {
-    position: absolute;
-    margin: 0 auto;
-    top: 40%;    
-    text-align: center;
-}
-
-#map-canvas {
+#map-canvas
+{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -70,287 +157,472 @@ body, html {
     right: 0;
 }
 
-#map-search-wrap {
+#map-geocode
+{
     position: absolute;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 3px;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
+    top: 0.2em;
+    left: 0.2em;
+    z-index: 50;
+    display: none;
 }
 
-#map-address {
+#map-clearGraphics
+{
+    width: 30px;
+    height: 30px;
     position: absolute;
-    left: 0;
-    right: 0;
-    margin: 3px 50px 0px 50px;
-    background-color: #fff;
-    font-style: italic;
-    color: #000;
-    padding: 7px 10px;
-    border-radius: 3em;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(180, 180, 180);
-    border-bottom-color: rgb(255, 255, 255);
-    box-shadow: 0 -1px 0 #3C3C3C;
-    -moz-background-clip: border-box;
-    -webkit-background-clip: border-box;
-    background-clip: border-box;
-}
-
-#map-search {
-    float: right;
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    border: none;
-    background: none;
-    background-image: url(../styles/images/search.png);
+    background-image: url("../styles/images/cloudRefresh.png");
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
+    background-size: 100%;
+    background-color: rgba(102, 102, 102, 0.80);
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    right: 0.2em;
+    bottom: 0.2em;
+    z-index: 30;
 }
 
-#map-search:active {
-    background-image: url(../styles/images/search_active.png);
-    background-repeat: no-repeat;
+#map-home 
+{
+    position: absolute;
+    left: 0.2em;
+    bottom: 0.2em;
+    z-index: 30;
 }
 
-#map-navigate-home {
-    float: left;
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    border: none;
-    background: none;
-    background-image: url(../styles/images/location.png);
-    background-repeat: no-repeat;
-    background-position: center center;
+#map-near-me
+{
+    position: absolute; 
+    left: 3em;
+    bottom: 0.2em;
+    z-index: 30; 
 }
 
-#map-navigate-home:active {
-    background-image: url(../styles/images/location_active.png);
-    background-repeat: no-repeat;
+#map-toggle
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 50;
 }
 
-/* WEATHER STYLES*/
-.weather {
-    padding-top:50px;
-}
-
-.weather .weather-title {
-    color: #fff;
-    font-size: 1.5em;
-    line-height: 1.2em;
-    text-shadow: none;
-    padding: 0;
-    margin: 0;
+#infoTap
+{
+    position: absolute;
+    background-color: rgba(102, 102, 102, 0.70);
     text-align: center;
-    position: absolute;
-    top: 10px;
-    left: 0;
+    vertical-align: middle;
+    color: White;
+    z-index: 50;
     width: 100%;
-}
-
-.weather-info {
-    color: #fff;
-    font-size: 1.2em;
-    text-shadow: none;
+    height: 1.8em;
     line-height: 1.8em;
-    display: inline-block;
 }
 
-.weather-info.date {
-    margin-top: 7px;
+/* Address List View */
+.map-address-box 
+{
+    position: absolute;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: rgba(102, 102, 102, 0.80);
+    width: 100%;
+    vertical-align: middle; 
+    border-radius: 1px;
+    border: 1px;
+    padding: 2px;
+    /* flexbox setup */
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    display: box;
+    box-orient: horizontal;
 }
 
-.weather-info.temperature {
-    margin-left: 5px;
+.map-address-box > div 
+{
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    box-flex: 1;
+    -moz-transition: width 0.7s ease-out;
+    -o-transition: width 0.7s ease-out;
+    -webkit-transition: width 0.7s ease-out;
+    transition: width 0.7s ease-out; 
 }
 
-.weather-info.temperature.low {
-    color: rgba(0,0,0,0.5);
+#addressEntry
+{ 
+    vertical-align: middle;
+    width: 68%;
+    height: 35px;
+    line-height: 35px;
 }
 
-/* Weather Icons*/
-.weather-icon {
-    width: 64px;
-    height: 64px;
-    background-image: url(../styles/images/sprite-weather.png);
+#address
+{
+    width: 100%;
+    height: 30px;
+    margin-left: 0.2em;
+    border-radius: 5px;
+    border-color: rgba(102, 102, 102, 0.60);
+    padding-left: 0.5em;
+    padding-right: 0.2em; 
+}
+
+#searchBtnCont
+{
+    vertical-align: middle;
+    padding-right: 2em;
+}
+
+.clear:after
+{
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.listAddress
+{
+    overflow: hidden;
+}
+
+.addressListWrapper
+{
+    margin: 0 10px;
+}
+
+.mapPointFrame
+{
     background-repeat: no-repeat;
-    float: right;
+    background-position: center;
+    vertical-align: middle;
+}
+
+.mapPointPicture
+{
+    background-image: url("../styles/images/pointOnMap.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 42px;
+    height: 72px;
+    float: left;
     position: relative;
-    top: -6px;
-    left: -10px;
+    display: block;
 }
 
-.weather-icon.sunny {
-    background-position: 0px 0px;
-}
-
-.weather-icon.cloudy {
-    background-position: 0px -64px;
-}
-
-.weather-icon.partly-cloudy {
-    background-position: 0px -128px;
-}
-
-.weather-icon.partly-sunny {
-    background-position: 0px -192px;
-}
-
-.weather-icon.shower {
-    background-position: 0px -256px;
-}
-
-.weather-icon.foggy {
-    background-position: 0px -320px;
-}
-
-.weather-icon.storm {
-    background-position: 0px -384px;
-}
-
-.position-left {
+.addressInformationContainer
+{
+    margin: 7px 0 0 10px;
     float: left;
 }
 
-.position-right {
-    float: right;
+.addressDetailContainer
+{
+    height: 16px;
 }
 
-.position.center {
+.addressLabel
+{
+    color: #486A9A;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.addressDetailText
+{
+    color: #486A9A;
+    font-weight: normal;
+    font-size: 0.9em;
+    margin-left: 0.2em;
+}
+
+.recordNumberLabel
+{
+    color: #486A9A;
+    font-weight: bold;
+    font-size: 0.95em;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: -5px
+}
+
+.details-link
+{
+    margin-top: -1em;
     position: absolute;
-    margin: 0 auto;
+    right: 0.6em;
+    top: 50%;
+}
+
+/* Settings view*/
+.balSlider
+{
+    width: 170px;
+}
+.balSlider .k-slider-selection
+{
+    width: 170px;
+    /*display: none;*/
+}
+
+#txtVersion
+{
+    text-align: right;
+}
+
+select#bufferSize
+{
+    width: auto;
+}
+
+/* Charts view */
+/*.barchart-wrapper, .barchart-wrapper .k-chart
+.linechart-wrapper, .linechart-wrapper .k-chart*/
+.chart-wrapper, .chart-wrapper .k-chart
+{
+    height: auto;
+    width:100%;
+ }
+
+/*info view*/
+#about
+{
+    /* font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;*/
+    width: 100%; 
+    font-size: 0.9em;
+}
+
+.aboutHeader
+{
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.aboutFooter
+{
+    font-size: 0.8em;
+}
+
+.aboutFooter1
+{
+    font-size: 0.8em;
+    text-align: center;
+    margin-top: 2em;
+}
+.aboutFooter2
+{
+    font-size: 0.75em;
+    text-align: center;
+}
+.aboutFooter3
+{
+    font-size: 0.7em;
+    margin-top: 5em;
+}
+
+.leftDiv
+{
+    font-size: 0.75em;
+    width: 50%;
+    float: left;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.leftDiv img 
+{
+    width: 75%;
+}
+
+.rightDiv
+{
+    font-size: 0.75em;
+    width: 50%;
+    float: right;
+    text-align: center;
+    vertical-align: bootom;
+}
+.rightDiv img 
+{
     width: 100%;
+}
+
+.mainDiv
+{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10em;
+    margin-top: 1em;
+    font-size: 0.75em;
+    text-align: center;
+}
+
+.txtLabel
+{
+    border-bottom: 0.1em dotted  #C0C0C0;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 1em; 
+    width: 42%;
+    height: 2.5em;
+}
+
+.txtDetail
+{
+    border-bottom: 0.1em dotted  #C0C0C0;
+    font-size: 0.9em;
+    text-align: right;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #333333;
+}
+
+/* Help */
+#help
+{
+    /* font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;*/
+    width: 100%; 
+    font-size: 0.9em;
 }
 
 /* DEVICE SPECIFIC STYLES*/
-#skin-change {
+#skin-change
+{
     position: absolute;
     right: 10px;
     top: 10px;
 }
 
-.km-ios .km-listview-wrapper .km-listinset li {
-    background-color: #fff;
+.km-ios .km-listview-wrapper .km-listinset li
+{
+    background-color: #fff; 
     border-color: #ababab;
 }
 
-.km-ios .km-view .km-content {
+.km-ios .km-view .km-content
+{
     background-image: none;
     background: #f0f0f0;
 }
 
-.km-tablet .km-ios .km-navbar .km-view-title {
+.km-tablet .km-ios .km-navbar .km-view-title
+{
     color: #000;
-    text-shadow: 0 -1px rgba(255,255,255,0.3);
+    text-shadow: 0 -1px rgba(255, 255, 255, 0.3);
 }
 
-.km-android .view-content h1 {
+.km-android .view-content h1
+{
     color: #8a8b8f;
 }
-
 .km-android .view-content p,
-.km-android .view-content h3 {
+.km-android .view-content h3
+{
     color: #2e5968;
 }
 
-.km-android .weather-info.temperature.low {
-    color: #2e5968;
-}
-
-.km-ios .km-view .weather {
-    background: #5fb4ed; /* Old browsers */
-    background: -moz-linear-gradient(top, #5fb4ed 0%, #0076c5 74%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5fb4ed), color-stop(74%,#0076c5)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #5fb4ed 0%,#0076c5 74%); /* IE10+ */
-    background: linear-gradient(to bottom, #5fb4ed 0%,#0076c5 74%); /* W3C */
-}
-.km-ios7 .km-view .weather,
-.km-flat .km-view .weather {
-    background: #b0b0b0;
-}
-
-.km-flat .km-list > li {
+.km-flat .km-list>li
+{
     box-shadow: none;
 }
 
 .km-ios .km-list > li,
-.km-flat .km-list > li {
+.km-flat .km-list>li
+{
     background: none;
     border: none;
 }
 
 /* Separator Style*/
-.separator > .dark {
-    background: -moz-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2) 70%, rgba(0,0,0,0) 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(30%,rgba(0,0,0,0.2)), color-stop(50%,rgba(0,0,0,0.2)), color-stop(70%,rgba(0,0,0,0.2)), color-stop(100%,rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
-    background: -o-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
-    background: -ms-linear-gradient(left, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
-    background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0.2) 30%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0.2) 70%,rgba(0,0,0,0) 100%);
+.separator > .dark
+{
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(30%, rgba(0, 0, 0, 0.2)), color-stop(50%, rgba(0, 0, 0, 0.2)), color-stop(70%, rgba(0, 0, 0, 0.2)), color-stop(100%, rgba(0, 0, 0, 0)));
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
+    background: -ms-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 30%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
     height: 1px;
     border: none;
     width: 100%;
     opacity: 0.3;
 }
 
-.separator > .light {
-    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(50%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0)));
-    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
-    background: -o-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
-    background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 50%,rgba(255,255,255,0) 100%);
+.separator > .light
+{
+    background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(255, 255, 255, 0)));
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    background: -o-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
     height: 1px;
     border: none;
     width: 100%;
     opacity: 0.3;
+}
+
+/* fonts */
+@font-face
+{
+    font-family: "fontello";
+    src: url("../style/images/fontello.woff") format("woff"),
+    url("../style/images/fontello.ttf") format("truetype");
+}
+
+.km-refresh-e:after,
+.km-refresh-e:before
+{
+    content: "\e01f";
 }
 
 /* RETINA DISPLAY STYLES*/
-@media only screen and (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
-    .img {
+@media only screen and (-webkit-min-device-pixel-ratio: 2) , (min-resolution: 192dpi)
+{
+    .img
+    {
         background-image: url(../styles/images/icenium2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    .logo {
+    .logo
+    {
         background-image: url(../styles/images/logo2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    #map-search {
+    #map-search
+    {
         background-image: url(../styles/images/search2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    #map-search:active {
+    #map-search:active
+    {
         background-image: url(../styles/images/search_active2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    #map-navigate-home {
+    #map-navigate-home
+    {
         background-image: url(../styles/images/location2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    #map-navigate-home:active {
+    #map-navigate-home:active
+    {
         background-image: url(../styles/images/location_active2x.png);
         background-repeat: no-repeat;
         background-size: 100%;
     }
-
-    .weather-icon {
+    .weather-icon
+    {
         background-image: url(../styles/images/sprite-weather2x.png);
         background-repeat: no-repeat;
         background-size: 100%;

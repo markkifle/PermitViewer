@@ -1,160 +1,387 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>DDOT Permits</title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
     <link href="styles/main.css" rel="stylesheet" />
+        <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css" />
 
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
-
-    <script src="scripts/login.js"></script>
-    <script src="scripts/location.js"></script>
-    <script src="scripts/weather.js"></script>
-    <script src="scripts/app.js"></script>
+        <script src="http://js.arcgis.com/3.7compact/"></script>
+    
+        <script>var dojoConfig = { parseOnLoad: true }</script>
+        <script src="scripts/appConfig.js"></script>
+        <script src="scripts/map.js"></script>
+        <script src="scripts/settings.js"></script>
+        <script src="scripts/chart.js"></script>
+        <script src="scripts/app.js"></script>
 
 </head>
-<body>
-    <!--Home-->
-    <div id="tabstrip-home"
-        data-role="view"
-        data-title="Home">
-
-        <div class="view-content">
-            <h1>Welcome!</h1>
-            <a id="skin-change" data-role="button" data-click="app.changeSkin">Flat</a>
-            <p>
-                Icenium&trade; enables you to build cross-platform device applications regardless of your
-                    development platform by combining the convenience of a local development toolset with the
-                    power and flexibility of the cloud.
-            </p>
-            <div class="img"></div>
-        </div>
-    </div>
-
-    <!--Login-->
-    <div id="tabstrip-login"
-        data-role="view"
-        data-title="Login"
-        data-model="app.loginService.viewModel">
-
-        <div class="view-content">
-            <div class="logo"></div>
-            <h3 data-bind="invisible: isLoggedIn">Enter your credentials:</h3>
-            <h1 class="welcome" data-bind="visible: isLoggedIn">Welcome, <span data-bind="text: username"></span>!
-            </h1>
-            <div class="buttonArea">
-                <input type="submit" id="logout" data-role="button" data-bind="click: onLogout, visible: isLoggedIn" class="login-button" value="Logout" />
-            </div>
-
-            <form data-bind="events: { keyup: checkEnter }">
-                <ul data-role="listview" data-style="inset" data-bind="invisible: isLoggedIn">
-                    <li>
-                        <label>
-                            Username
-                                <input type="text" data-bind="value: username" />
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            Password
-                                <input type="password" data-bind="value: password" />
-                        </label>
-                    </li>
-                </ul>
-
-                <div class="buttonArea">
-                    <input type="submit" id="login" data-role="button" data-bind="click: onLogin, invisible: isLoggedIn" class="login-button" value="Login" />
+  <body>
+        <!-- Map View page -->
+        <div data-role="view" id="drawer-map" data-title="Permits" 
+             data-init="app.locationService.initLocation"
+             data-show="app.locationService.show" 
+             data-hide="app.locationService.hide" 
+             data-model="app.locationService.viewModel" 
+             data-stretch="true">
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="drawerButton" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="drawer-button" data-align="left"></a>
+                    <span data-role="view-title"></span>
+                    <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
-            </form>
-        </div>
-
-    </div>
-
-    <!--Location-->
-    <div id="tabstrip-location"
-        data-role="view"
-        data-title="Location"
-        data-init="app.locationService.initLocation"
-        data-show="app.locationService.show"
-        data-hide="app.locationService.hide"
-        data-model="app.locationService.viewModel"
-        data-stretch="true">
-
-        <div id="no-map" data-bind="invisible: isGoogleMapsInitialized">
-            Location requires internet connection to display the map.
-        </div>
-        <div id="map-search-wrap" data-bind="visible: isGoogleMapsInitialized">
-            <button id="map-navigate-home" data-bind="click: onNavigateHome"></button>
-            <form onsubmit="return false;">
-                <input id="map-address" type="search" data-bind="value: address" placeholder="Address" />
-                <input id="map-search" type="submit" value="" data-bind="click: onSearchAddress" />
-            </form>
-        </div>
-        <div id="map-canvas" data-bind="visible: isGoogleMapsInitialized"></div>
-
-    </div>
-
-    <!--Weather-->
-    <div id="tabstrip-weather"
-        data-role="view"
-        data-title="Weather"
-        data-model="app.weatherService.viewModel">
-
-        <div class="weather">
-            <p class="weather-title">20-Day Forecast</p>
-
-            <div class="separator">
-                <div class="dark"></div>
-                <div class="light"></div>
             </div>
+            <div id="map-canvas">
+                <div id="map-geocode"></div>
+                <div id="map-near-me"></div>
+                <div id="map-home"></div>
+                <div id="map-toggle"></div>
+                <div id="map-clearGraphics">
+                    <!--  <a data-role="button" data-icon="clear"></a>-->
+                </div>
 
-            <ul class="forecast-list"
-                data-role="listview"
-                data-bind="source: weatherDataSource"
-                data-template="weather-forecast-template">
+                <div id="map-address" class="map-address-box">
+                    <div id="addressEntry">
+                        <input type="text" id="address" class="k-input" autocomplete="on" placeholder="Enter a valid DC address" />
+                    </div>
+                    <div id="sesrchBtnCont">
+                        <div style="float:right">
+                            <a id="sesrchBtn" data-role="button" data-icon="locate" class="nav-button" data-bind="click :onLocate" >Locate</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="infoTap" data-align="center">
+                    <label>
+                        Double tap to get permit information
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!--Drawer -->
+        <div data-role="drawer" id="left-drawer"  data-title="Permit Tools" data-views='["/", "drawer-map"]'>
+            <header data-role="header">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+            </header>
+
+            <ul data-role="listview" data-type="group">
+                <li>
+                    Permits
+                    <ul>
+                        <li data-icon="globe">
+                            <a href="#drawer-map" data-transition="none">Map</a>
+                        </li>
+                        <li data-icon="chart">
+                            <a href="#drawer-chart" data-transition="none">Chart</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Application
+                    <ul>
+                        <li data-icon="settings">
+                            <a href="#drawer-settings" data-transition="none">Settings</a>
+                        </li>
+                        <li data-icon="about">
+                            <a href="#drawer-about" data-transition="none">About</a>
+                        </li>
+                        <li data-icon="help">
+                            <a href="#drawer-help" data-transition="none">Help</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
-    </div>
 
-    <!--Weather forecast template-->
-    <script type="text/x-kendo-tmpl" id="weather-forecast-template">
-        <div>
-            <div class="position-left">
-                <span class="weather-info date">${day}</span>
+        <!--Address Templates -->
+        <script type="text/x-kendo-template" id="addressesList-template">
+            <a class="listAddress clear" >
+                <div class=" mapPointFrame mapPointPicture"></div>
+                <div class="addressInformationContainer">
+                    <div class="addressDetailContainer">
+                        <span class="addressLabel">Address:</span><span class="addressDetailText">${Address}</span>
+                    </div>
+                    <div class="addressDetailContainer">
+                        <span class="addressLabel">Latitude:</span><span class="addressDetailText">${Latitude}</span>
+                    </div>
+                    <div class="addressDetailContainer">
+                        <span class="addressLabel">Longitude:</span><span class="addressDetailText"> ${Longitude}</span>
+                    </div>
+                    <div class="addressDetailContainer">
+                        <span class="addressLabel">Score:</span><span class="addressDetailText">${Score}</span>
+                    </div>
+                </div>
+            </a>
+        </script>
+
+        <!-- Address list view page -->
+        <div data-role="view" id="drawer-addresslist" data-title="Candidates"  >
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnAddressList">Back</a>
+                    <span data-role="view-title"></span>
+                </div>
             </div>
-            <div class="position-right">
-                <span class="weather-info temperature high">${highTemperature}<sup>&deg;</sup></span>
-                <span class="weather-info temperature low">${lowTemperature}<sup>&deg;</sup></span>
-            </div>
-            <div class="position-center">
-                <span class="weather-icon ${image}"></span>
+
+            <div id="addressListViewContent" data-role="content">
+                <div class="recordNumberLabel">
+                    <label id="recordLabel">No Records found!</label>
+                </div>
+                <ul class="addressListWrapper" data-role="listview" data-style="inset" data-type="group">
+                    <li>
+                        <ul id="addressList" data-template="addressesList-template" data-source="ds"></ul>
+                    </li>
+                </ul>
             </div>
         </div>
-    </script>
 
-    <!--Layout-->
-    <div data-role="layout" data-id="tabstrip-layout">
-
-        <!--Header-->
-        <div data-role="header">
-            <div data-role="navbar">
-                <span data-role="view-title"></span>
+        <!-- Charts page -->
+        <div data-role="view" id="drawer-chart" data-title="Chart" 
+             data-init="app.chartService.initChart"
+             data-model="app.chartService.viewModel" 
+             data-stretch="true" >
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a  data-role="backbutton" data-align="left"  id="backBtnCharts">Back</a>
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            <div id="chartsViewWrap" data-role="content">
+                <div id="charts">
+                    <ul id="select-chart" data-index="0">
+                        <li>Bar</li>
+                        <li>Pie</li>
+                    </ul>
+                    <div class="chart-wrapper" >
+                        <div id="barchart"></div>
+                        <div id="piechart" style="display:none"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!--Footer-->
-        <div data-role="footer">
-            <div data-role="tabstrip">
-                <a href="#tabstrip-home" data-icon="home">Home</a>
-                <a href="#tabstrip-login" data-icon="contacts">Login</a>
-                <a href="#tabstrip-location" data-icon="search">Location</a>
-                <a href="#tabstrip-weather" data-icon="globe">Weather</a>
+        <!-- Settings page -->
+        <div data-role="view" id="drawer-settings" data-title="Settings" data-layout="drawer-layout" >
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnSettings">Back</a>
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            <div id="settingsViewWrap" data-role="content">
+                <div id="settings">
+                    <ul data-role="listview" data-style="inset" data-type="group">
+                        <li>
+                            Geometry Service
+                            <ul>
+                                <li>
+                                    <select id="bufferSize"  dir="rtl">
+                                        <option value="0.1" selected="selected">miles 0.1</option>
+                                        <option value="0.2">miles 0.2</option>
+                                        <option value="0.3">miles 0.3</option>
+                                        <option value="0.4">miles 0.4</option>
+                                        <option value="0.5">miles 0.5</option>
+                                    </select>
+                                    Buffer Size (in miles) :
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Address Locator
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="locator" type="radio" id="btnMAR" checked="checked" disabled="disabled" />
+                                        Master Address Repository
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Show Layers
+                            <ul>
+                                <li>
+                                    Construction Permits
+                                    <input data-role="switch" name="btnCon" id="btnCon" checked="checked" />
+                                </li>
+                                <li>
+                                    Occupancy Permits
+                                    <input data-role="switch" name="btnOcc" id="btnOcc" checked="checked" />
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Show Charts
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="chart" id="conChart" type="radio" id="btnChartConst" checked="checked"  />
+                                        Construction Permits
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="chart"  id="occChart" type="radio" id="btnChartOccup"  />
+                                        Occupancy Permits
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            DC Administration Area
+                            <ul>
+                                <li>
+                                    <select id="ward"  dir="rtl">
+                                        <option value="1" selected="selected">1 Ward</option>
+                                        <option value="2">2 Ward</option>
+                                        <option value="3">3 Ward</option>
+                                        <option value="4">4 Ward</option>
+                                        <option value="5">5 Ward</option>
+                                        <option value="6">6 Ward</option>
+                                        <option value="7">7 Ward</option>
+                                        <option value="8">8 Ward</option>
+                                    </select>
+                                    Ward
+                                </li>
+                           </ul>
+                           Ward is used only to generate charts
+                        </li>
+                        <li>
+                            Application Theme
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="theme" id="defaultTheme" type="radio" id="btnDefTheme" value=""  checked="checked"/>
+                                        Default
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="theme" id="flatTheme" type="radio" id="btnFlatTheme" value="flat"  />
+                                        Flat
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Base Map
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="baseMap" type="radio" id="btnESRI" checked="checked"  />
+                                        ESRI Topo Base Map
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Information
+                            <ul>
+                                <li>
+                                    Version
+                                    <input type="text" value="1.0.1.12" id="txtVersion" disabled="disabled" />
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+
+        <!-- About View page -->
+        <div data-role="view" id="drawer-about" data-title="About"  data-layout="drawer-layout" >
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="nav-button" data-role="backbutton"  data-align="left">Back</a>
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            <div id="aboutViewWrap" data-role="content">
+                <div id="about">
+                    <div class="aboutHeader">
+                        DDOT Permits for Smart Phones
+                    </div>
+                    <div>
+                        The District of Columbia Department of Transportation (DDOT) Permit lookup application for iPhone/iPad, Android application provides the public with a map based permit lookup tool for DDOT public space permits.<br />
+                    </div>
+                    <div class="aboutFooter">
+                        The DDOT Permits for Smart Phones application is powered by ArcGIS Server ver. 10.1 and the Javascript API.
+                    </div>
+                    <div class="aboutFooter1">
+                        <span>Mapping API provided by Esri., Inc.</span>
+                        <span>
+                            <a target="_blank" href="http://help.arcgis.com/en/webapi/javascript/arcgis/index.html">ArcGIS Javascript API</a>
+                        </span>
+                    </div>
+                    <div class="aboutFooter2">
+                        <span>Copyright:© 2011 National Geographic Society, i-cubed</span>
+                    </div>
+                    <div class="mainDiv">
+                        <div class="leftDiv">
+                            <figure id="dc">
+                                <img src="styles/images/dcflag.png" />
+                             </figure>
+                            <a target="_blank" href="http://dc.gov">
+                                Government of The District of Columbia
+                            </a>
+                        </div>
+                        <div class="rightDiv">
+                            <figure id="ddot">
+                                <img src="styles/images/ddotlogo.png" />
+                            </figure>
+                            <a target="_blank" href="http://ddot.dc.gov">
+                                District Department of Transportaion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="aboutFooter3">
+                    <span>Developed by</span>
+                    <span>
+                        <a target="_blank" href="http://PrimeSource.com">Prime Source Technologies LLC</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help page -->
+        <div data-role="view" id="drawer-help" data-title="Help" data-layout="drawer-layout" >
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="nav-button" data-role="backbutton" data-align="left" data-icon="back" id="backBtnCharts">Back</a>
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+            <div id="helpViewWrap" data-role="content">
+                <div id="help">
+                    <div>
+                        <ul>
+                            <li>Adjust settings to view icons for either construction or occupancy Permits or both.</li>
+                            <li>Adjust search radius for permits in settings.</li>
+                            <li>Use address lookup or just tap and hold on a map location to search for Permits.</li>
+                            <li>Simply tap the icon to view basic permit details.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Layout-->
+        <div data-role="layout" data-id="drawer-layout" >
+            <!--Header-->
+            <div data-role="header">
+                <div data-role="navbar">
+                    <a class="drawerButton" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="drawer-button" data-align="left"></a>
+                    <span data-role="view-title"></span>
+                </div>
+            </div>
+        </div>
+
+    </body>
 </html>
