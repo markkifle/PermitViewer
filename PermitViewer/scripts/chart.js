@@ -1,4 +1,4 @@
-(function (global, $) {
+(function (global) {
     var pieChart = null,
     barChart = null,
     ChartViewModel,
@@ -11,97 +11,6 @@
     app = global.app = global.app || {};
     
     ChartViewModel = kendo.data.ObservableObject.extend({
-        //app.pieChart = {      
- 
- 
-        /*      createBarChart: function() {
-        if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) || 
-        (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
-        $("#barchart").kendoChart({
-        dataSource: conPermitDS, 
-        title: {
-        text: "Construction permits in Ward " + ward,
-        font:"0.79em sans-serif",
-        position: "top",
-        },
-        seriesDefaults: {
-        labels: {
-        visible: true,
-        font: "0.6em sans-serif",
-        background: "transparent",
-        //position: "top",
-        template: "#= value #"
-        },
-        },   
-        series: [
-        {
-        type: "column",
-        field :"Count",
-        categoryField: "Status",
-        name: "#= group.value #"
-        },
-        ],
-        legend: {
-        position: "bottom",
-        labels: {
-        font: "0.7em sans-serif",
-        },
-        margin: {
-        bottom:20
-        }
-        },
-        categoryAxis: {
-        //title: {
-        //    text: "Status",
-        //    font: "0.7em  sans-serif",
-        //},
-        labels: {
-        visible: false,
-        font : "0.7em  sans-serif",
-        rotation: 45
-        },
-        field:"Date",
-        labels : {
-        visible:  false,
-        format: "MMM"
-        }
-        },
-        valueAxis: [
-        {
-        title: {
-        text: "Count",
-        font: "0.7em  sans-serif",
-        },
-        labels: {
-        font: "0.7em  sans-serif",
-        skip: 2,
-        step: 2
-        }
-        }
-        ], 
-        });
-        }
-
-        else {
-        return;
-        }
-
-        var barChart = $("#barchart").data("kendoChart");
-
-        //check which permit is checked for charting
-        if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-        barChart.options.datasource = conPermitDS;
-        barChart.options.title.text = "Construction permits in Ward " + ward;
-        barChart.refresh();
-        }
-        else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-        barChart.options.datasource = ocuPermitDS;
-        barChart.options.title.text = "Occupancy permits in Ward " + ward;
-        barChart.refresh();
-        }
-        },
- 
-        */     
         /*    createPieChart: function() {
         if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) ||
         (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
@@ -146,18 +55,6 @@
         }
         else {
         return;
-        }
-        var pieChart = $("#piechart").data("kendoChart");
-        //check which permit is checked for charting
-        if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-        pieChart.options.datasource = conPermitDS;
-        pieChart.options.title.text = "Construction permits in Ward " + ward;
-        pieChart.refresh();
-        }
-        else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-        pieChart.options.datasource = ocuPermitDS;
-        pieChart.options.title.text = "Occupancy permits in Ward " + ward;
-        pieChart.refresh();
         }
         },
         */
@@ -291,7 +188,6 @@
         
         createPieChart: function () {
             var that = this;
-           
             that.drawPieChart();
             that.bindPieResizeEvent();
         },
@@ -308,17 +204,25 @@
             if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) ||
                 (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
                 pieChart = $pieChart.kendoChart({
-                    theme: global.app.chartsTheme,
+                    //theme: global.app.chartsTheme,
                     renderAs: "svg",
                     dataSource: conPermitDS,                  
                     title: {
                         position: "top",
+                        font:"0.79em sans-serif",
                         text: "Construction permits in Ward " + ward,
                     },
                     legend: {
-                        position: "bottom"
+                        visible: true,
+                        position:"bottom",
+                        labels: {
+                            font: "0.7em sans-serif",
+                        },
+                        margin: {
+                            bottom:20
+                        },
                     },
-                    /*chartArea: {
+                    /* chartArea: {
                     background: "",
                     width: $(window).width(),
                     margin: app.emToPx(1)
@@ -335,32 +239,8 @@
                     series: [
                         {
                             type: "pie",
-                            startAngle: 150,
-                            type: "pie",
                             field :"Count",
                             categoryField: "Status",
-                        
-                            /*data: [
-                            {
-                            category: "Asia",
-                            value: 53.8
-                            }, {
-                            category: "Europe",
-                            value: 16.1
-                            }, {
-                            category: "Latin America",
-                            value: 11.3
-                            }, {
-                            category: "Africa",
-                            value: 9.6
-                            }, {
-                            category: "Middle East",
-                            value: 5.2
-                            }, {
-                            category: "North America",
-                            value: 3.6
-                            }
-                            ]*/
                         }
                     ],
                     tooltip: {
@@ -373,21 +253,21 @@
                 return
             }
             //check which permit is checked for charting
+            var piechart = $pieChart.data("kendoChart");
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                pieChart.options.datasource = conPermitDS;
-                pieChart.options.title.text = "Construction permits in Ward " + ward;
-                pieChart.refresh();
+                piechart.options.datasource = conPermitDS;
+                piechart.options.title.text = "Construction permits in Ward " + ward;
+                piechart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                pieChart.options.datasource = ocuPermitDS;
-                pieChart.options.title.text = "Occupancy permits in Ward " + ward;
-                pieChart.refresh();
+                piechart.options.datasource = ocuPermitDS;
+                piechart.options.title.text = "Occupancy permits in Ward " + ward;
+                piechart.refresh();
             }
         },
 
         bindPieResizeEvent: function () {
-            var that = this;
-           
+            var that = this;           
             //as the dataviz-s are complex elements they need redrow after window resize 
             //in order to position themselve on the right place and right size
             $(window).on("resize.pieChart", $.proxy(that.drawPieChart, app.pieChart));
@@ -410,13 +290,12 @@
             if (barChart !== null) {
                 barChart.destroy();
             }
-
             $barChart = $("#barchart").empty();
             if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) || 
                 (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
-                $barChart.kendoStockChart({
-                    theme: global.app.chartsTheme,
-                    //renderAs: "svg",
+                $barChart.kendoChart({
+                    //theme: global.app.chartsTheme,
+                    renderAs: "svg",
                     dataSource: conPermitDS,   
                     title: {
                         position: "top",
@@ -440,7 +319,7 @@
                             name: "#= group.value #"
                         },
                     ],
-                    /* chartArea: {
+                    /*  chartArea: {
                     background: "",
                     width: $(window).width(),
                     margin: app.emToPx(1)
@@ -487,15 +366,16 @@
             }
             
             //check which permit is checked for charting
+            var barchart = $barChart.data("kendoChart");
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                barChart.options.datasource = conPermitDS;
-                barChart.options.title.text = "Construction permits in Ward " + ward;
-                //barChart.refresh();
+                barchart.options.datasource = conPermitDS;
+                barchart.options.title.text = "Construction permits in Ward " + ward;
+                barchart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                barChart.options.datasource = ocuPermitDS;
-                barChart.options.title.text = "Occupancy permits in Ward " + ward;
-                barChart.refresh();
+                barchart.options.datasource = ocuPermitDS;
+                barchart.options.title.text = "Occupancy permits in Ward " + ward;
+                barchart.refresh();
             }
         },
 
@@ -503,7 +383,7 @@
             var that = this;         
             //as the dataviz-s are complex elements they need redrow after window resize 
             //in order to position themselve on the right place and right size
-            // $(window).on("resize.barChart", $.proxy(that.drawBarChart, app.barChart));
+            $(window).on("resize.barChart", $.proxy(that.drawBarChart, app.barChart));
         },
 
         unbindBarResizeEvent : function () {
@@ -540,4 +420,4 @@
         : new ChartViewModel()
     }
 }
-)(window, jQuery);
+)(window);

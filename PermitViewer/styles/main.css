@@ -382,8 +382,8 @@ select#bufferSize
 }
 
 /* Charts view */
-/*.barchart-wrapper, .barchart-wrapper .k-chart
-.linechart-wrapper, .linechart-wrapper .k-chart*/
+.barchart-wrapper, .barchart-wrapper .k-chart
+.linechart-wrapper, .linechart-wrapper .k-chart
 .chart-wrapper, .chart-wrapper .k-chart
 {
     height: auto;

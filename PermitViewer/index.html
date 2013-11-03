@@ -148,7 +148,7 @@
         <div data-role="view" id="drawer-chart" data-title="Chart" 
              data-init="app.chartService.initChart"
              data-model="app.chartService.viewModel" 
-             data-stretch="true" >
+             data-layout="drawer-layout" >
             <div data-role="header">
                 <div data-role="navbar">
                     <a  data-role="backbutton" data-align="left"  id="backBtnCharts">Back</a>
@@ -157,7 +157,7 @@
             </div>
             <div id="chartsViewWrap" data-role="content">
                 <div id="charts">
-                    <ul id="select-chart" data-index="0">
+                    <ul id="select-chart" data-index="0" data-role="buttongroup">
                         <li>Bar</li>
                         <li>Pie</li>
                     </ul>
