@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>2f2d2838-6a57-424b-a49b-a3f04370e579</ProjectGuid>
     <ProjectTypeGuids>{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}</ProjectTypeGuids>
-    <AppIdentifier>com.telerik.PermitViewer</AppIdentifier>
+    <AppIdentifier>gov.dc.ddot.PermitViewer</AppIdentifier>
     <ProjectName>PermitViewer</ProjectName>
     <IsRunnable>true</IsRunnable>
     <FrameworkVersion>3.0.0</FrameworkVersion>
@@ -13,7 +13,7 @@
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>true</AndroidHardwareAcceleration>
     <BundleVersion>1.0</BundleVersion>
-    <iOSDisplayName />
+    <iOSDisplayName>DDOT Permits Viewer</iOSDisplayName>
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode>location</iOSBackgroundMode>
     <AndroidVersionCode>1</AndroidVersionCode>

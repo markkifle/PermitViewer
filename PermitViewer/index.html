@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>DDOT Permits</title>
-    <meta charset="utf-8" />
-    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-    <link href="styles/main.css" rel="stylesheet" />
+    <head>
+        <title>DDOT Permits</title>
+        <meta charset="utf-8" />
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.dataviz.mobile.all.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.dataviz.flat.all.min.css" rel="stylesheet" />
+        <link href="styles/main.css" rel="stylesheet" />
         <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css" />
 
-    <script src="cordova.js"></script>
-    <script src="kendo/js/jquery.min.js"></script>
-    <script src="kendo/js/kendo.mobile.min.js"></script>
+        <script src="cordova.js"></script>
+        <script src="kendo/js/jquery.min.js"></script>
+        <script src="kendo/js/kendo.mobile.min.js"></script>
         <script src="http://js.arcgis.com/3.7compact/"></script>
-    
+        
         <script>var dojoConfig = { parseOnLoad: true }</script>
         <script src="scripts/appConfig.js"></script>
         <script src="scripts/map.js"></script>
@@ -19,8 +21,8 @@
         <script src="scripts/chart.js"></script>
         <script src="scripts/app.js"></script>
 
-</head>
-  <body>
+    </head>
+    <body>
         <!-- Map View page -->
         <div data-role="view" id="drawer-map" data-title="Permits" 
              data-init="app.locationService.initLocation"
@@ -249,8 +251,8 @@
                                     </select>
                                     Ward
                                 </li>
-                           </ul>
-                           Ward is used only to generate charts
+                            </ul>
+                            Ward is used only to generate charts
                         </li>
                         <li>
                             Application Theme
@@ -326,7 +328,7 @@
                         <div class="leftDiv">
                             <figure id="dc">
                                 <img src="styles/images/dcflag.png" />
-                             </figure>
+                            </figure>
                             <a target="_blank" href="http://dc.gov">
                                 Government of The District of Columbia
                             </a>

@@ -375,7 +375,11 @@
                          array, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Color, webMercatorUtils, Query, QueryTask, Deferred) {
                 loaderElement = app.application.pane.loader.element.find("h1");
                 parser.parse();
-                esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
+                // esriConfig.defaults.io.useCors=true;            
+               // esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
+               // esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
+                esriConfig.defaults.io.proxyUrl = "https://streetvendor.ddot.dc.gov/StreetVendor/proxy.ashx";
+               //esriConfig.defaults.io.proxyUrl = "proxy.ashx";
                 //create a mobile popup
                 popup = new PopupMobile(null, domConstruct.create("div"));
 

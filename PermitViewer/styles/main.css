@@ -27,6 +27,7 @@ body, html
 }
 
 /* left drawer */
+/*
 
 #left-drawer .km-navbar, 
 #left-drawer .km-content 
@@ -39,6 +40,7 @@ body, html
 {
     background-color: rgba(102, 102, 102, 0.90);
 }
+*/
 
 .km-ios #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
 .km-ios #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
@@ -49,8 +51,8 @@ body, html
     color: #fff;
 }
 
-.km-ios #my-drawer .km-group-title,
-.km-blackberry #my-drawer .km-group-title
+.km-ios #left-drawer .km-group-title,
+.km-blackberry #left-drawer .km-group-title
 {
     background-color: #6e6e6e;
     color: #fff;
