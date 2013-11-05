@@ -5,13 +5,11 @@
         <meta charset="utf-8" />
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="kendo/styles/kendo.dataviz.mobile.min.css" rel="stylesheet" />
-           <link href="kendo/styles/kendo.dataviz.bootstrap.min.css" rel="stylesheet" />
-      <link href="kendo/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
-        <link href="kendo/styles/kendo.dataviz.metroblack.min.css" rel="stylesheet" />
-         <link href="kendo/styles/kendo.dataviz.silver.min.css" rel="stylesheet" />
-         <link href="kendo/styles/kendo.dataviz.uniform.min.css" rel="stylesheet" />
-         
-         <link href="styles/main.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.dataviz.flat.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.dataviz.silver.min.css" rel="stylesheet" />
+
+        <link href="styles/main.css" rel="stylesheet" />
         <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css" />
 
         <script src="cordova.js"></script>
@@ -19,7 +17,7 @@
         <script src="kendo/js/kendo.mobile.min.js"></script>
         <script src="kendo/js/kendo.dataviz.mobile.min.js"></script>
         <script src="http://js.arcgis.com/3.7compact/"></script>
-        
+
         <script>var dojoConfig = { parseOnLoad: true }</script>
         <script src="scripts/appConfig.js"></script>
         <script src="scripts/map.js"></script>
@@ -259,7 +257,7 @@
                                     Ward
                                 </li>
                             </ul>
-                           <span style="font-size: 0.75em; margin-left: 1.5em; ccolor: #fff;">Ward is used only to generate charts</span>
+                            <span style="font-size: 0.75em; margin-left: 1.5em; ccolor: #fff;">Ward is used only to generate charts</span>
                         </li>
                         <li>
                             Application Theme
@@ -278,6 +276,30 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            Chart Theme
+                            <ul>
+                                <li>
+                                    <label>
+                                        <input name="charttheme" id="defaultTheme" type="radio" id="btnDefTheme" value="default"  checked="checked"/>
+                                        Default
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="charttheme" id="flatTheme" type="radio" id="btnFlatTheme" value="flat"  />
+                                        Flat
+                                    </label>
+                                </li>
+                                <li>
+                                    <label>
+                                        <input name="charttheme" id="silverTheme" type="radio" id="btnSilverTheme" value="silver"  />
+                                        Silver
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+
                         <li>
                             Base Map
                             <ul>

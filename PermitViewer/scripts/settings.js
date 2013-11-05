@@ -112,12 +112,19 @@
                 //app.chartService.viewModel.refreshPieChart();
             });
             
-            //Theme selector
+            //Application Theme selector
             $('input:radio[name=theme]').on("click", function() {
                 var radioChecked = $('input[name=theme]:radio:checked');
                 app.application.skin(radioChecked.val());
             });
-            
+ 
+            //Chart Theme selector
+            $('input:radio[name=charttheme]').on("click", function() {
+                var radioChecked = $('input[name=charttheme]:radio:checked');
+               app.chartService.viewModel.setChartTheme(radioChecked.val());
+                
+            });
+
             //setup queries for the charts
             app.chartService.viewModel.queryConstPermit();
             app.chartService.viewModel.queryOccupPermit();

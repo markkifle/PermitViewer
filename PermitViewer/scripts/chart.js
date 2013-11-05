@@ -325,7 +325,7 @@
                 }).data("kendoChart");
             }
         },
-               
+        
         refreshBarChart: function() {
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
                 barChart.setDataSource(conPermitDS);
@@ -337,6 +337,8 @@
                 barChart.options.title.text = "Occupancy Permits in Ward " + ward;
                 barChart.refresh();
             }
+            
+            console.log(global.app.chartsTheme);
         },
 
         bindBarResizeEvent : function () {
@@ -351,6 +353,15 @@
             $(window).off("resize.pieChart");
             $(window).off("resize.barChart");
         },
+
+        setChartTheme : function(theme) {
+            global.app.chartsTheme = theme;
+            if (barChart !== null)
+                barChart.setOptions({ theme: global.app.chartsTheme });
+            if (pieChart !== null)
+                pieChart.setOptions({ theme: global.app.chartsTheme });
+        }
+
     });
     
     app.chartService = {
