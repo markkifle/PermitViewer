@@ -148,6 +148,7 @@
         <div data-role="view" id="drawer-chart" data-title="Chart" 
              data-init="app.chartService.initChart"
              data-model="app.chartService.viewModel" 
+             data-hide="app.chartService.viewModel.unbindResizeEvent"
              data-layout="drawer-layout" >
             <div data-role="header">
                 <div data-role="navbar">
@@ -253,7 +254,7 @@
                                     Ward
                                 </li>
                             </ul>
-                            Ward is used only to generate charts
+                           <span style="font-size: 0.75em; margin-left: 1.5em; ccolor: #fff;">Ward is used only to generate charts</span>
                         </li>
                         <li>
                             Application Theme
@@ -288,7 +289,7 @@
                             <ul>
                                 <li>
                                     Version
-                                    <input type="text" value="1.0.1.12" id="txtVersion" disabled="disabled" />
+                                    <input type="text" value="1.0.12" id="txtVersion" disabled="disabled" />
                                 </li>
                             </ul>
                         </li>

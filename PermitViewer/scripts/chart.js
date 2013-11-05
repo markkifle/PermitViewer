@@ -11,53 +11,6 @@
     app = global.app = global.app || {};
     
     ChartViewModel = kendo.data.ObservableObject.extend({
-        /*    createPieChart: function() {
-        if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) ||
-        (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
-        $("#piechart").kendoChart({
-        dataSource : {
-        data: conPermits
-        },
-        title: {
-        text: "Construction permits in Ward " + ward,
-        font:"0.79em  sans-serif",
-        position: "top",
-        },
-        legend: {
-        visible: true,
-        position:"bottom",
-        labels: {
-        font: "0.7em sans-serif",
-        },
-        margin: {
-        bottom:20
-        }
-
- 
-        },
-        seriesDefaults: {
-        labels: {
-        visible: true,
-        background: "transparent",
-        position: "center",
-        //template: "#= category  #: #= value #",
-        template: "#= value #"
-        },
-        },   
-        series: [
-        { 
-        type: "pie",
-        field :"Count",
-        categoryField: "Status",
-        }
-        ],
-        });
-        }
-        else {
-        return;
-        }
-        },
-        */
         
         queryConstPermit: function () {
             require([
@@ -189,7 +142,7 @@
         createPieChart: function () {
             var that = this;
             that.drawPieChart();
-            that.bindPieResizeEvent();
+            // that.bindPieResizeEvent();
         },
   
         drawPieChart: function () {
@@ -222,50 +175,50 @@
                             bottom:20
                         },
                     },
-                    /* chartArea: {
-                    background: "",
-                    width: $(window).width(),
-                    margin: app.emToPx(1)
-                    },*/
+                    chartArea: {
+                        background: "",
+                        width: $(window).width(),
+                        margin: app.emToPx(1)
+                    },
                     seriesDefaults: {
                         labels: {
                             visible: true,
                             background: "transparent",
                             position: "center",
-                            //template: "#= category  #: #= value #",
                             template: "#= value #"
                         },
                     },    
                     series: [
                         {
                             type: "pie",
+                            startAngle: 150,  
                             field :"Count",
                             categoryField: "Status",
                         }
                     ],
-                    tooltip: {
-                        visible: true,
-                        format: "{0}"
-                    }
+                    /*tooltip: {
+                    visible: true,
+                    format: "{0}"
+                    }*/
                 }).data("kendoChart");
             }
             else {
-                return
+                return;
             }
             //check which permit is checked for charting
-            var piechart = $pieChart.data("kendoChart");
+            // var piechart = $pieChart.data("kendoChart");
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                piechart.options.datasource = conPermitDS;
-                piechart.options.title.text = "Construction permits in Ward " + ward;
-                piechart.refresh();
+                pieChart.options.datasource = conPermitDS;
+                pieChart.options.title.text = "Construction permits in Ward " + ward;
+                pieChart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                piechart.options.datasource = ocuPermitDS;
-                piechart.options.title.text = "Occupancy permits in Ward " + ward;
-                piechart.refresh();
+                pieChart.options.datasource = ocuPermitDS;
+                pieChart.options.title.text = "Occupancy permits in Ward " + ward;
+                pieChart.refresh();
             }
         },
-
+        
         bindPieResizeEvent: function () {
             var that = this;           
             //as the dataviz-s are complex elements they need redrow after window resize 
@@ -277,7 +230,7 @@
             //unbind the "resize event" to prevent redudntant calculations when the tab is not active
             $(window).off("resize.pieChart");
         },
-
+        
         createBarChart: function () {
             var that = this;
             that.drawBarChart();
@@ -293,7 +246,7 @@
             $barChart = $("#barchart").empty();
             if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) || 
                 (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
-                $barChart.kendoChart({
+                barChart = $barChart.kendoChart({
                     //theme: global.app.chartsTheme,
                     renderAs: "svg",
                     dataSource: conPermitDS,   
@@ -319,11 +272,11 @@
                             name: "#= group.value #"
                         },
                     ],
-                    /*  chartArea: {
-                    background: "",
-                    width: $(window).width(),
-                    margin: app.emToPx(1)
-                    },*/
+                    chartArea: {
+                        background: "",
+                        width: $(window).width(),
+                        margin: app.emToPx(1)
+                    },
                     legend: {
                         visible: true,
                         position: "bottom",
@@ -359,23 +312,23 @@
                             }
                         }
                     ]
-                });
+                }).data("kendoChart");
             }
             else {
                 return;
             }
             
             //check which permit is checked for charting
-            var barchart = $barChart.data("kendoChart");
+            //var barchart = $barChart.data("kendoChart");
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                barchart.options.datasource = conPermitDS;
-                barchart.options.title.text = "Construction permits in Ward " + ward;
-                barchart.refresh();
+                barChart.options.datasource = conPermitDS;
+                barChart.options.title.text = "Construction permits in Ward " + ward;
+                barChart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                barchart.options.datasource = ocuPermitDS;
-                barchart.options.title.text = "Occupancy permits in Ward " + ward;
-                barchart.refresh();
+                barChart.options.datasource = ocuPermitDS;
+                barChart.options.title.text = "Occupancy permits in Ward " + ward;
+                barChart.refresh();
             }
         },
 
@@ -389,7 +342,13 @@
         unbindBarResizeEvent : function () {
             //unbind the "resize event" to prevent redudntant calculations when the tab is not active
             $(window).off("resize.barChart");
-        }
+        },
+      
+        unbindResizeEvent: function () {
+            //unbind the "resize event" to prevent redudntant calculations when the tab is not active
+            $(window).off("resize.pieChart");
+            $(window).off("resize.barChart");
+        },
     });
     
     app.chartService = {
