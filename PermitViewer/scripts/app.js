@@ -1,5 +1,5 @@
 (function (global) {
-    var defaultChartTheme = 'silver',
+    var defaultChartTheme = 'metroblack',
     mobileSkin = "",
     app = global.app = global.app || {};
     

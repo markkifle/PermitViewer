@@ -142,7 +142,7 @@
         createPieChart: function () {
             var that = this;
             that.drawPieChart();
-            // that.bindPieResizeEvent();
+            that.bindPieResizeEvent();
         },
   
         drawPieChart: function () {
@@ -157,13 +157,15 @@
             if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) ||
                 (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
                 pieChart = $pieChart.kendoChart({
-                    //theme: global.app.chartsTheme,
+                    theme: global.app.chartsTheme,
                     renderAs: "svg",
-                    dataSource: conPermitDS,                  
+                    dataSource:{
+                        data:conPermits  
+                    },                 
                     title: {
                         position: "top",
                         font:"0.79em sans-serif",
-                        text: "Construction permits in Ward " + ward,
+                        text: "Construction Permits in Ward " + ward,
                     },
                     legend: {
                         visible: true,
@@ -172,17 +174,19 @@
                             font: "0.7em sans-serif",
                         },
                         margin: {
-                            bottom:20
+                            bottom:30
                         },
                     },
                     chartArea: {
                         background: "",
                         width: $(window).width(),
-                        margin: app.emToPx(1)
+                        margin: app.emToPx(0.5)
                     },
                     seriesDefaults: {
                         labels: {
                             visible: true,
+                            font: "0.58em sans-serif",
+                            color: "rgb(255, 255, 255)",
                             background: "transparent",
                             position: "center",
                             template: "#= value #"
@@ -196,25 +200,31 @@
                             categoryField: "Status",
                         }
                     ],
-                    /*tooltip: {
-                    visible: true,
-                    format: "{0}"
-                    }*/
+                    tooltip: {
+                        visible: true,
+                        format: "{0}"
+                    }
                 }).data("kendoChart");
             }
-            else {
-                return;
-            }
-            //check which permit is checked for charting
-            // var piechart = $pieChart.data("kendoChart");
+        },
+        
+        refreshPieChart: function() {
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                pieChart.options.datasource = conPermitDS;
-                pieChart.options.title.text = "Construction permits in Ward " + ward;
+                pieChart.setOptions({
+                    dataSource:{
+                        data:conPermits  
+                    }
+                });
+                pieChart.options.title.text = "Construction Permits in Ward " + ward;
                 pieChart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                pieChart.options.datasource = ocuPermitDS;
-                pieChart.options.title.text = "Occupancy permits in Ward " + ward;
+                pieChart.setOptions({
+                    dataSource:{
+                        data:ocuPermits  
+                    }
+                });
+                pieChart.options.title.text = "Occupancy Permits in Ward " + ward;
                 pieChart.refresh();
             }
         },
@@ -226,11 +236,6 @@
             $(window).on("resize.pieChart", $.proxy(that.drawPieChart, app.pieChart));
         },
 
-        unbindPieResizeEvent: function () {
-            //unbind the "resize event" to prevent redudntant calculations when the tab is not active
-            $(window).off("resize.pieChart");
-        },
-        
         createBarChart: function () {
             var that = this;
             that.drawBarChart();
@@ -247,13 +252,13 @@
             if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) || 
                 (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
                 barChart = $barChart.kendoChart({
-                    //theme: global.app.chartsTheme,
+                    theme: global.app.chartsTheme,
                     renderAs: "svg",
-                    dataSource: conPermitDS,   
+                    dataSource: conPermitDS, 
                     title: {
                         position: "top",
                         font:"0.79em sans-serif",
-                        text: "Construction permits in Ward " + ward,
+                        text: "Construction Permits in Ward " + ward,
                        
                     },
                     seriesDefaults: {
@@ -275,7 +280,7 @@
                     chartArea: {
                         background: "",
                         width: $(window).width(),
-                        margin: app.emToPx(1)
+                        margin: app.emToPx(0.5)
                     },
                     legend: {
                         visible: true,
@@ -284,7 +289,7 @@
                             font: "0.7em sans-serif",
                         },
                         margin: {
-                            bottom:20
+                            bottom:30
                         }
                     },
                     categoryAxis: {
@@ -311,23 +316,25 @@
                                 step: 2
                             }
                         }
-                    ]
+                    ],
+                    tooltip: {
+                        visible: true,
+                        format: "{0}"
+                    }
+
                 }).data("kendoChart");
             }
-            else {
-                return;
-            }
-            
-            //check which permit is checked for charting
-            //var barchart = $barChart.data("kendoChart");
+        },
+               
+        refreshBarChart: function() {
             if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                barChart.options.datasource = conPermitDS;
-                barChart.options.title.text = "Construction permits in Ward " + ward;
+                barChart.setDataSource(conPermitDS);
+                barChart.options.title.text = "Construction Permits in Ward " + ward;
                 barChart.refresh();
             }
             else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                barChart.options.datasource = ocuPermitDS;
-                barChart.options.title.text = "Occupancy permits in Ward " + ward;
+                barChart.setDataSource(ocuPermitDS);
+                barChart.options.title.text = "Occupancy Permits in Ward " + ward;
                 barChart.refresh();
             }
         },
@@ -339,11 +346,6 @@
             $(window).on("resize.barChart", $.proxy(that.drawBarChart, app.barChart));
         },
 
-        unbindBarResizeEvent : function () {
-            //unbind the "resize event" to prevent redudntant calculations when the tab is not active
-            $(window).off("resize.barChart");
-        },
-      
         unbindResizeEvent: function () {
             //unbind the "resize event" to prevent redudntant calculations when the tab is not active
             $(window).off("resize.pieChart");
@@ -360,12 +362,12 @@
                     if (this.selectedIndex === 0) {
                         $('#barchart').show();
                         $('#piechart').hide();
-                        app.chartService.viewModel.createBarChart();
+                        // app.chartService.viewModel.createBarChart();
                     }
                     else if (this.selectedIndex === 1) {
                         $('#barchart').hide();
                         $('#piechart').show();
-                        app.chartService.viewModel.createPieChart();
+                        // app.chartService.viewModel.createPieChart();
                     }
                 },
                 index: 0
@@ -373,6 +375,7 @@
    
             //initialize charts
             app.chartService.viewModel.createBarChart();
+            app.chartService.viewModel.createPieChart();
         },
         
         viewModel

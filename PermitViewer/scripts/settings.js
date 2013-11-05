@@ -53,6 +53,17 @@
                 return false;
             }
         },
+        
+        reloadChart : function(chart) {
+            if (chart === "conChart") { 
+                app.chartService.viewModel.queryConstPermit();
+            }  
+            else if (chart === "occChart") {
+                app.chartService.viewModel.queryOccupPermit();    
+            }
+            app.chartService.viewModel.refreshBarChart();
+            app.chartService.viewModel.refreshPieChart();   
+        }
 
     });
     
@@ -72,52 +83,41 @@
             //wire ward  change
             $("select#ward").change(function() {
                 ward = $("#ward").val();  
-                app.chartService.viewModel.queryConstPermit();
-                app.chartService.viewModel.queryOccupPermit();
-                app.chartService.viewModel.createBarChart();
-                app.chartService.viewModel.createPieChart();
-            });           
+                var chart = app.settingsService.viewModel.getCheckedPermitForCharts();
+                app.settingsService.viewModel.reloadChart(chart);
+                //app.chartService.viewModel.queryConstPermit();
+                //app.chartService.viewModel.queryOccupPermit();
+                //if (chart === "conChart") { 
+                //    app.chartService.viewModel.queryConstPermit();
+                //}  
+                //else if (chart === "occChart") {
+                //    app.chartService.viewModel.queryOccupPermit();    
+                //}
+                //app.chartService.viewModel.refreshBarChart();
+                //app.chartService.viewModel.refreshPieChart();
+            });    
             
+            //Chart Selector
+            $('input:radio[name=chart]').on("click", function() {
+                var radioChecked = $('input[name=chart]:radio:checked');
+                app.settingsService.viewModel.reloadChart(radioChecked.val());
+                console.log(radioChecked.val());
+                //if (radioChecked.val() === "conChart") { 
+                //    app.chartService.viewModel.queryConstPermit();
+                //}  
+                //else if (radioChecked.val() === "occChart") {
+                //    app.chartService.viewModel.queryOccupPermit();    
+                //}
+                //app.chartService.viewModel.refreshBarChart();
+                //app.chartService.viewModel.refreshPieChart();
+            });
+            
+            //Theme selector
             $('input:radio[name=theme]').on("click", function() {
                 var radioChecked = $('input[name=theme]:radio:checked');
                 app.application.skin(radioChecked.val());
             });
             
-            ////wire on effectivedate change
-            //$("#effectivedate").change(function() {
-            //    var d = $("#effectivedate").val();
-            //    var y = d.split('-');
-            //    var selectedDate = new Date(y[0], y[1] - 1, y[2]);
-            //    var today = new Date();
-            //    today.setDate(today.getDate() - 45);
-            //    var back45Date = today;
-            //    var todaysDate = new Date();
-            //    //get UTC Dates
-            //    var todaysDateUTC = Date.UTC(todaysDate.getUTCFullYear(), todaysDate.getUTCMonth(), todaysDate.getUTCDate(), 0, 0, 0, 0);
-            //    var selectedDateUTC = Date.UTC(selectedDate.getUTCFullYear(), selectedDate.getUTCMonth(), selectedDate.getUTCDate(), 0, 0, 0, 0);
-            //    var fback45DateUTC = Date.UTC(back45Date.getUTCFullYear(), back45Date.getUTCMonth(), back45Date.getUTCDate(), 0, 0, 0, 0);
-            
-            //    //check selected date is more than 45 days ago
-            //    if (selectedDateUTC < fback45DateUTC) {
-            //        navigator.notification.alert('Effective date cannot be more than 45 days ago.', null, 'Error', 'Ok');
-            //        today = new Date();
-            //        today.setDate(today.getDate() - 7);
-            //        $("#effectivedate").val(today.toISOString().slice(0, 10));
-            //    }
-            //    else if (selectedDateUTC > todaysDateUTC) {
-            //        navigator.notification.alert('Effective date cannot be a date in future.', null, 'Error', 'Ok');
-            //        today = new Date();
-            //        today.setDate(today.getDate() - 7);
-            //        $("#effectivedate").val(today.toISOString().slice(0, 10));
-            //    }
-            //    else {
-            //        effectiveDate = selectedDate;
-            //        //setup queries for the charts
-            //        app.chartService.viewModel.queryConstPermit();
-            //        app.chartService.viewModel.queryOccupPermit();
-            //    }
-            //});
-    
             //setup queries for the charts
             app.chartService.viewModel.queryConstPermit();
             app.chartService.viewModel.queryOccupPermit();
