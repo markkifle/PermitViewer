@@ -42,6 +42,11 @@ background-color: rgba(102, 102, 102, 0.90);
 }
 */
 
+.km-ios7 .km-navbar, .km-ios7 .km-tabstrip
+{
+    background-color: rgba(244,244,244,0.99);
+}
+
 .km-ios7 #left-drawer .km-view-title, .km-android #left-drawer .km-view-title, .km-blackberry #left-drawer .km-view-title
 {
     background-color: #4e4e4e;
@@ -405,7 +410,6 @@ select#bufferSize
 
 /* Charts view */
 .barchart-wrapper, .barchart-wrapper .k-chart
-.linechart-wrapper, .linechart-wrapper .k-chart
 .chart-wrapper, .chart-wrapper .k-chart
 {
     height: auto;

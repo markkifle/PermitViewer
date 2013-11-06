@@ -178,7 +178,7 @@
                         },
                     },
                     chartArea: {
-                        background: "",
+                       // background: "",
                         width: $(window).width(),
                         margin: app.emToPx(0.5)
                     },
@@ -278,7 +278,7 @@
                         },
                     ],
                     chartArea: {
-                        background: "",
+                        //background: "",
                         width: $(window).width(),
                         margin: app.emToPx(0.5)
                     },

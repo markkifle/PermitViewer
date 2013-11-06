@@ -85,16 +85,6 @@
                 ward = $("#ward").val();  
                 var chart = app.settingsService.viewModel.getCheckedPermitForCharts();
                 app.settingsService.viewModel.reloadChart(chart);
-                //app.chartService.viewModel.queryConstPermit();
-                //app.chartService.viewModel.queryOccupPermit();
-                //if (chart === "conChart") { 
-                //    app.chartService.viewModel.queryConstPermit();
-                //}  
-                //else if (chart === "occChart") {
-                //    app.chartService.viewModel.queryOccupPermit();    
-                //}
-                //app.chartService.viewModel.refreshBarChart();
-                //app.chartService.viewModel.refreshPieChart();
             });    
             
             //Chart Selector

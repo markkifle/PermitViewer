@@ -36,4 +36,9 @@
         var emSize = parseFloat($("body").css("font-size"));
         return (emSize * input);
     }
+    
+   /* app.hideDrawer = function() {
+        console.log('close');
+        $("#left-drawer").data("kendoMobileDrawer").hide();
+    }*/
 })(window);
