@@ -337,8 +337,6 @@
                 barChart.options.title.text = "Occupancy Permits in Ward " + ward;
                 barChart.refresh();
             }
-            
-            console.log(global.app.chartsTheme);
         },
 
         bindBarResizeEvent : function () {
@@ -353,14 +351,13 @@
             $(window).off("resize.pieChart");
             $(window).off("resize.barChart");
         },
-
+        
         setChartTheme : function(theme) {
+            var that = this;
             global.app.chartsTheme = theme;
-            if (barChart !== null)
-                barChart.setOptions({ theme: global.app.chartsTheme });
-            if (pieChart !== null)
-                pieChart.setOptions({ theme: global.app.chartsTheme });
-        }
+            that.createPieChart();
+            that.createBarChart();
+         }
 
     });
     
@@ -373,13 +370,11 @@
                     if (this.selectedIndex === 0) {
                         $('#barchart').show();
                         $('#piechart').hide();
-                        // app.chartService.viewModel.createBarChart();
                     }
                     else if (this.selectedIndex === 1) {
                         $('#barchart').hide();
                         $('#piechart').show();
-                        // app.chartService.viewModel.createPieChart();
-                    }
+                     }
                 },
                 index: 0
             });

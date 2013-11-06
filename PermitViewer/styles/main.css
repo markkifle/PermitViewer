@@ -27,37 +27,59 @@ body, html
 }
 
 /* left drawer */
-/*
 
-#left-drawer .km-navbar, 
+
+/*#left-drawer .km-navbar, 
 #left-drawer .km-content 
 {
-    color: rgb(255, 255, 255);
-    background-color: rgba(20, 20, 20, 0.90);
+color: rgb(255, 255, 255);
+background-color: rgba(20, 20, 20, 0.90);
 }
 
-#left-drawer .km-group-title
+#left-drawer
 {
-    background-color: rgba(102, 102, 102, 0.90);
+background-color: rgba(102, 102, 102, 0.90);
 }
 */
 
-.km-ios #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
-.km-ios #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
-.km-ios #left-drawer .km-listview-link > .km-icon, .km-android #left-drawer .km-listview-link > .km-icon, .km-blackberry #left-drawer .km-listview-link > .km-icon,
-.km-ios #left-drawer .km-list li > .km-icon, .km-android #left-drawer .km-list li > .km-icon, .km-blackberry #left-drawer .km-list li > .km-icon
+.km-ios7 #left-drawer .km-view-title, .km-android #left-drawer .km-view-title, .km-blackberry #left-drawer .km-view-title
 {
     background-color: #4e4e4e;
     color: #fff;
 }
 
-.km-ios #left-drawer .km-group-title,
-.km-blackberry #left-drawer .km-group-title
+.km-ios7 #left-drawer .km-group-title, .km-android #left-drawer .km-group-title, .km-blackberry #left-drawer .km-group-title
 {
     background-color: #6e6e6e;
     color: #fff;
 }
 
+.km-ios7 #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content
+{
+    background-color: #4e4e4e;
+    color: #fff; 
+}
+.km-ios7 #left-drawer .km-listview-link, .km-ios7 #left-drawer .km-listview-link:after{
+    color: #fff;
+}
+
+/*
+.km-ios #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
+.km-ios #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
+.km-ios #left-drawer .km-listview-link > .km-icon, .km-android #left-drawer .km-listview-link > .km-icon, .km-blackberry #left-drawer .km-listview-link > .km-icon,
+.km-ios #left-drawer .km-list li > .km-icon, .km-android #left-drawer .km-list li > .km-icon, .km-blackberry #left-drawer .km-list li > .km-icon
+{
+background-color: #4e4e4e;
+color: #fff;
+}
+
+.km-ios #left-drawer .km-group-title,
+.km-blackberry #left-drawer .km-group-title
+{
+background-color: #6e6e6e;
+color: #fff;
+}
+*/
 .km-drawer-button:before, .km-drawer-button:after { content: "\E077"; }
 .km-search:before, .km-search:after { content: "\E07F"; }
 .km-locate:before, .km-locate:after { content: "\E0B4"; }
@@ -387,8 +409,8 @@ select#bufferSize
 .chart-wrapper, .chart-wrapper .k-chart
 {
     height: auto;
-    width:100%;
- }
+    width: 100%;
+}
 
 /*info view*/
 #about

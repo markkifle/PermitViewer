@@ -99,30 +99,20 @@
             
             //Chart Selector
             $('input:radio[name=chart]').on("click", function() {
-                var radioChecked = $('input[name=chart]:radio:checked');
-                app.settingsService.viewModel.reloadChart(radioChecked.val());
-                console.log(radioChecked.val());
-                //if (radioChecked.val() === "conChart") { 
-                //    app.chartService.viewModel.queryConstPermit();
-                //}  
-                //else if (radioChecked.val() === "occChart") {
-                //    app.chartService.viewModel.queryOccupPermit();    
-                //}
-                //app.chartService.viewModel.refreshBarChart();
-                //app.chartService.viewModel.refreshPieChart();
+                var checkedChartTypeSource = $('input[name=chart]:radio:checked');
+                app.settingsService.viewModel.reloadChart(checkedChartTypeSource.val());
             });
             
             //Application Theme selector
             $('input:radio[name=theme]').on("click", function() {
-                var radioChecked = $('input[name=theme]:radio:checked');
-                app.application.skin(radioChecked.val());
+                var checkedAppTheme = $('input[name=theme]:radio:checked');
+                app.application.skin(checkedAppTheme.val());
             });
  
             //Chart Theme selector
             $('input:radio[name=charttheme]').on("click", function() {
-                var radioChecked = $('input[name=charttheme]:radio:checked');
-               app.chartService.viewModel.setChartTheme(radioChecked.val());
-                
+                var checkedChartTheme = $('input[name=charttheme]:radio:checked');
+                app.chartService.viewModel.setChartTheme(checkedChartTheme.val());
             });
 
             //setup queries for the charts
