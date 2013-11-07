@@ -7,7 +7,8 @@
     ocuPermits = [],
     conPermitDS,
     ocuPermitDS,
-    ward,               
+    ward,  
+    permitChart,
     app = global.app = global.app || {};
     
     ChartViewModel = kendo.data.ObservableObject.extend({
@@ -20,6 +21,9 @@
                 loaderElement.text('Selecting...').addClass("loaderHeading"); 
                 ward = app.settingsService.viewModel.getWard();
                 app.locationService.viewModel.showLoading();
+                
+                ward = app.settingsService.viewModel.getWard();//get ward
+
                 var queryTask = new QueryTask(appConfig.opLayer1MSURL);//Construction Permit
                 var query = new Query();
                 query.returnGeometry = false;
@@ -83,6 +87,9 @@
                 loaderElement.text('Selecting...').addClass("loaderHeading"); 
                 ward = app.settingsService.viewModel.getWard();
                 app.locationService.viewModel.showLoading();
+          
+                ward = app.settingsService.viewModel.getWard();//get ward
+
                 var queryTask = new QueryTask(appConfig.opLayer2MSURL);//Construction Permit
                 var query = new Query();
                 query.returnGeometry = false;
@@ -144,29 +151,23 @@
             that.drawPieChart();
             that.bindPieResizeEvent();
         },
-  
+        
         drawPieChart: function () {
+            var that = this;
             var $pieChart;
 
             if (pieChart !== null) {
                 pieChart.destroy();
             }
-
             $pieChart = $("#piechart").empty();
-           
-            if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) ||
-                (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
+    
+            permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            
+            if ((permitChart==="conChart" && conPermits != null) ||
+                (permitChart==="occChart" && ocuPermits != null)) {
                 pieChart = $pieChart.kendoChart({
                     theme: global.app.chartsTheme,
                     renderAs: "svg",
-                    dataSource:{
-                        data:conPermits  
-                    },                 
-                    title: {
-                        position: "top",
-                        font:"0.79em sans-serif",
-                        text: "Construction Permits in Ward " + ward,
-                    },
                     legend: {
                         visible: true,
                         position:"bottom",
@@ -178,7 +179,7 @@
                         },
                     },
                     chartArea: {
-                       // background: "",
+                        // background: "",
                         width: $(window).width(),
                         margin: app.emToPx(0.5)
                     },
@@ -205,28 +206,38 @@
                         format: "{0}"
                     }
                 }).data("kendoChart");
+                    
+                that.refreshPieChart();
             }
         },
         
         refreshPieChart: function() {
-            if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
+            permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            if (permitChart==="conChart" && conPermits != null) {
                 pieChart.setOptions({
                     dataSource:{
                         data:conPermits  
+                    }, title: {
+                        
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Construction Permits in Ward " + ward
                     }
+                        
                 });
-                pieChart.options.title.text = "Construction Permits in Ward " + ward;
-                pieChart.refresh();
             }
-            else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
+            else if (permitChart==="occChart" && ocuPermits != null) {
                 pieChart.setOptions({
                     dataSource:{
                         data:ocuPermits  
+                    }, title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Occupancy Permits in Ward " + ward,
                     }
                 });
-                pieChart.options.title.text = "Occupancy Permits in Ward " + ward;
-                pieChart.refresh();
             }
+            pieChart.refresh();
         },
         
         bindPieResizeEvent: function () {
@@ -243,24 +254,21 @@
         },
     
         drawBarChart: function () {
+            var that = this;
             var $barChart;
 
             if (barChart !== null) {
                 barChart.destroy();
             }
             $barChart = $("#barchart").empty();
-            if ((app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart" && conPermitDS) || 
-                (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart" && ocuPermitDS)) {
+            
+            permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+ 
+            if ((permitChart==="conChart" && conPermitDS != null) || 
+                (permitChart==="occChart" && ocuPermitDS != null)) {
                 barChart = $barChart.kendoChart({
                     theme: global.app.chartsTheme,
                     renderAs: "svg",
-                    dataSource: conPermitDS, 
-                    title: {
-                        position: "top",
-                        font:"0.79em sans-serif",
-                        text: "Construction Permits in Ward " + ward,
-                       
-                    },
                     seriesDefaults: {
                         labels: {
                             visible: true,
@@ -321,22 +329,38 @@
                         visible: true,
                         format: "{0}"
                     }
-
+                    
                 }).data("kendoChart");
+                    
+                that.refreshBarChart();
             }
         },
         
         refreshBarChart: function() {
-            if (app.settingsService.viewModel.getCheckedPermitForCharts()==="conChart") {
-                barChart.setDataSource(conPermitDS);
-                barChart.options.title.text = "Construction Permits in Ward " + ward;
-                barChart.refresh();
+            if (permitChart==="conChart" && conPermitDS != null) {
+                barChart.setOptions({
+                    dataSource: conPermitDS,  
+                    title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Construction Permits in Ward " + ward
+                    }
+                });
+                    
+                console.log(conPermitDS);
             }
-            else if (app.settingsService.viewModel.getCheckedPermitForCharts()==="occChart") {
-                barChart.setDataSource(ocuPermitDS);
-                barChart.options.title.text = "Occupancy Permits in Ward " + ward;
-                barChart.refresh();
-            }
+            else if (permitChart==="occChart" && ocuPermitDS != null) {
+                barChart.setOptions({
+                    dataSource:ocuPermitDS,
+                    title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Occupancy Permits in Ward " + ward
+                       
+                    }
+                });
+            } 
+            barChart.refresh();  
         },
 
         bindBarResizeEvent : function () {
@@ -353,11 +377,11 @@
         },
         
         setChartTheme : function(theme) {
-            var that = this;
+            //var that = this;
             global.app.chartsTheme = theme;
-            that.createPieChart();
-            that.createBarChart();
-         }
+            //that.createPieChart();
+            //that.createBarChart();
+        }
 
     });
     
@@ -368,18 +392,19 @@
             $("#select-chart").kendoMobileButtonGroup({
                 select: function() {
                     if (this.selectedIndex === 0) {
+                        app.chartService.viewModel.createBarChart();
                         $('#barchart').show();
                         $('#piechart').hide();
                     }
                     else if (this.selectedIndex === 1) {
+                        app.chartService.viewModel.createPieChart();
                         $('#barchart').hide();
                         $('#piechart').show();
-                     }
+                    }
                 },
                 index: 0
             });
-   
-            //initialize charts
+            
             app.chartService.viewModel.createBarChart();
             app.chartService.viewModel.createPieChart();
         },

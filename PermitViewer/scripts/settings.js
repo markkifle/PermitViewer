@@ -18,7 +18,7 @@
             if ($('input[id$="defaultTheme"]').is(':checked')) {
                 return "Default"; 
             }
-            if ($('input[id$="flatTheme"]').is(':checked')) {
+            else if ($('input[id$="flatTheme"]').is(':checked')) {
                 return "Flat"; 
             }
         },
@@ -27,7 +27,7 @@
             if ($('input[id$="conChart"]').is(':checked')) {
                 return "conChart"; 
             }
-            if ($('input[id$="occChart"]').is(':checked')) {
+            else if ($('input[id$="occChart"]').is(':checked')) {
                 return "occChart"; 
             }
         },
@@ -54,15 +54,11 @@
             }
         },
         
-        reloadChart : function(chart) {
-            if (chart === "conChart") { 
-                app.chartService.viewModel.queryConstPermit();
-            }  
-            else if (chart === "occChart") {
-                app.chartService.viewModel.queryOccupPermit();    
-            }
-            app.chartService.viewModel.refreshBarChart();
-            app.chartService.viewModel.refreshPieChart();   
+        reloadChart : function() {
+            app.chartService.viewModel.queryConstPermit();
+            app.chartService.viewModel.queryOccupPermit();    
+            app.chartService.viewModel.createBarChart();
+            app.chartService.viewModel.createPieChart();   
         }
 
     });
@@ -77,20 +73,19 @@
                 bufferSize = kendo.parseFloat($("#bufferSize").val());  
             });
  
-            //initialize Buffer size
+            //initialize ward
             ward = $('#ward').val();  
          
             //wire ward  change
             $("select#ward").change(function() {
-                ward = $("#ward").val();  
-                var chart = app.settingsService.viewModel.getCheckedPermitForCharts();
-                app.settingsService.viewModel.reloadChart(chart);
+                ward = $("#ward").val(); 
+                app.settingsService.viewModel.reloadChart();
             });    
             
             //Chart Selector
             $('input:radio[name=chart]').on("click", function() {
-                var checkedChartTypeSource = $('input[name=chart]:radio:checked');
-                app.settingsService.viewModel.reloadChart(checkedChartTypeSource.val());
+                app.chartService.viewModel.refreshPieChart();
+                app.chartService.viewModel.refreshBarChart();
             });
             
             //Application Theme selector
