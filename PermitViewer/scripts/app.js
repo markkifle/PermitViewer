@@ -11,8 +11,18 @@
       
         navigator.splashscreen.hide();
         app.application = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip", statusBarStyle : statusBarStyle });
-        //app.application = new kendo.mobile.Application(document.body, { layout: "drawer-layout" });
-        //hide arrdess entry div
+
+        //get device info 
+        app.model = device.model;
+        app.platform = device.platform;
+
+        app.uuid = device.uuid;
+        app.version = device.version;
+
+        console.log(app.model);
+        console.log(app.platform);
+     
+        //hide arrdess entry div	
         $('#map-address').hide();  
 
         app.application.skin(mobileSkin);
@@ -21,14 +31,6 @@
     }, false);
     
     app.changeSkin = function (e) {
-        //if (e.sender.element.text() === "Flat") {
-        //    e.sender.element.text("Native");
-        //    mobileSkin = "flat";
-        //}
-        //else {
-        //    e.sender.element.text("Flat");
-        //    mobileSkin = "";
-        //}
         app.application.skin(mobileSkin);
     };
   
@@ -36,9 +38,4 @@
         var emSize = parseFloat($("body").css("font-size"));
         return (emSize * input);
     }
-    
-   /* app.hideDrawer = function() {
-        console.log('close');
-        $("#left-drawer").data("kendoMobileDrawer").hide();
-    }*/
 })(window);
