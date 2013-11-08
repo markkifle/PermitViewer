@@ -149,7 +149,7 @@
         createPieChart: function () {
             var that = this;
             that.drawPieChart();
-            that.bindPieResizeEvent();
+           // that.bindPieResizeEvent();
         },
         
         drawPieChart: function () {
@@ -207,7 +207,8 @@
                     }
                 }).data("kendoChart");
                     
-                that.refreshPieChart();
+                if (pieChart)
+                    that.refreshPieChart();
             }
         },
         
@@ -244,13 +245,13 @@
             var that = this;           
             //as the dataviz-s are complex elements they need redrow after window resize 
             //in order to position themselve on the right place and right size
-            $(window).on("resize.pieChart", $.proxy(that.drawPieChart, app.pieChart));
+            $(window).on("resize.pieChart", $.proxy(that.drawPieChart, app.chartService));
         },
 
         createBarChart: function () {
             var that = this;
             that.drawBarChart();
-            that.bindBarResizeEvent();
+          //  that.bindBarResizeEvent();
         },
     
         drawBarChart: function () {
@@ -332,7 +333,8 @@
                     
                 }).data("kendoChart");
                     
-                that.refreshBarChart();
+                if (barChart)
+                    that.refreshBarChart();
             }
         },
         
@@ -346,8 +348,6 @@
                         text: "Construction Permits in Ward " + ward
                     }
                 });
-                    
-                console.log(conPermitDS);
             }
             else if (permitChart==="occChart" && ocuPermitDS != null) {
                 barChart.setOptions({
@@ -367,7 +367,7 @@
             var that = this;         
             //as the dataviz-s are complex elements they need redrow after window resize 
             //in order to position themselve on the right place and right size
-            $(window).on("resize.barChart", $.proxy(that.drawBarChart, app.barChart));
+            $(window).on("resize.barChart", $.proxy(that.drawBarChart, app.chartService));
         },
 
         unbindResizeEvent: function () {
@@ -377,10 +377,7 @@
         },
         
         setChartTheme : function(theme) {
-            //var that = this;
             global.app.chartsTheme = theme;
-            //that.createPieChart();
-            //that.createBarChart();
         }
 
     });
@@ -404,7 +401,7 @@
                 },
                 index: 0
             });
-            
+            //Initialize chart
             app.chartService.viewModel.createBarChart();
             app.chartService.viewModel.createPieChart();
         },

@@ -19,14 +19,14 @@
     
     LocationViewModel = kendo.data.ObservableObject.extend({
         
-        _lastMarker: null,
-        _isLoading: true,
-        
+        isLoading: true,
+        watchID : null,
+         
         onNavigateHome: function () {
             var that = this,
             position;
 
-            that._isLoading = true;
+            that.isLoading = true;
             that.showLoading();
             
             navigator.geolocation.getCurrentPosition(
@@ -35,11 +35,8 @@
                         position = webMercatorUtils.geographicToWebMercator(new Point(location.coords.longitude, location.coords.latitude));
                     });
                     curLoc = true;
-                    // that._lastMarker = position;
-           
                     that.addGraphic(position, true);
-                    
-                    that._isLoading = false;
+                    that.isLoading = false;
                     that.hideLoading();
                 },
                 function (error) {
@@ -48,7 +45,7 @@
                         position = webMercatorUtils.geographicToWebMercator(new Point(-77.032, 38.906, new esri.SpatialReference({ wkid: 4326 })));
                     });
                     map.centerAndZoom(position, 16);
-                    that._isLoading = false;
+                    that.isLoading = false;
                     that.hideLoading();
 
                     navigator.notification.alert("Unable to determine current location. Cannot connect to GPS satellite.",
@@ -62,7 +59,7 @@
         },
 
         showLoading: function () {
-            if (this._isLoading) {
+            if (this.isLoading) {
                 if (app.application) {
                     app.application.showLoading();
                 }
@@ -358,7 +355,57 @@
                 );
             });
         },
-   
+
+        // Start watching the acceleration
+        startWatch: function() {
+            // Only start testing if watchID is currently null.
+            var that = this;
+            if (that.watchID === null) {
+                // Update acceleration every 1 second
+                var options = { frequency: 1000 };
+                that.watchID = navigator.accelerometer.watchAcceleration(function() { 
+                    that.onAccelerometerSuccess.apply(that, arguments)
+                }, function(error) { 
+                    that.onAccelerometerError.apply(that, arguments)
+                }, options);
+            }
+        },
+     
+        // Stop watching the acceleration
+        stopWatch: function() {
+            var that = this;
+            if (that.watchID !== null) {
+                navigator.accelerometer.clearWatch(that.watchID);
+                that.watchID = null;
+            }
+        },
+ 
+        //resize map on success
+        onAccelerometerSuccess: function(acceleration) {
+            var that = this;
+            that.resizeMap();
+        },
+    
+        //Failed to get the acceleration
+        onAccelerometerError: function(error) {
+            //check if we're running in simulator
+            if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
+                // navigator.notification.alert(error, null, 'Error', 'Ok');
+                this.stopWatch.apply(this, arguments);
+            }
+            else 
+                navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
+        },
+        
+        resizeMap: function() {
+            if (map) {
+                $("#map-canvas").css("height", $("#mapcontent").css("height"));
+                $('#map-canvas').css("width", $("#mapcontent").css("width"));
+                map.reposition();
+                map.resize();
+            }  
+        }
+        
     });
       
     app.locationService = {
@@ -376,11 +423,11 @@
                 loaderElement = app.application.pane.loader.element.find("h1");
                 parser.parse();
                 
-                esriConfig.defaults.io.useCors=true;            
+                esriConfig.defaults.io.useCors = true;            
                 //esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
                 esriConfig.defaults.io.proxyUrl = "http://ddotwebfm01/proxy/proxy.ashx";
                 esriConfig.defaults.io.corsEnabledServers.push("maps2.dcgis.dc.gov");
-                 // esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
+                // esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
  
                 //create a mobile popup
                 popup = new PopupMobile(null, domConstruct.create("div"));
@@ -538,6 +585,19 @@
                         map.resize();
                     }
                 }, false);
+                //Detect device and OS if android sart waching the accelerometer ...
+                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
+                //var deviceName = kendo.support.mobileOS.device; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+                //console.log(deviceOs);
+                //console.log(deviceName);
+                //console.log(isTablet);             
+                
+                //detect if it is android tablet
+                if (deviceOs === "android" && isTablet === "android") {
+                    app.locationService.viewModel.startWatch();
+                }                             
+                             
                 navigator.splashscreen.hide();
             });
         },

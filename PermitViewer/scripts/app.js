@@ -15,12 +15,11 @@
         //get device info 
         app.model = device.model;
         app.platform = device.platform;
-
         app.uuid = device.uuid;
         app.version = device.version;
 
-        console.log(app.model);
-        console.log(app.platform);
+        //console.log(app.model);
+        //console.log(app.platform);
      
         //hide arrdess entry div	
         $('#map-address').hide();  
@@ -34,6 +33,11 @@
         app.application.skin(mobileSkin);
     };
   
+    app.openDrawer = function(e)
+    {
+        console.log('Open Drawer');
+    };
+    
     app.emToPx = function (input) {
         var emSize = parseFloat($("body").css("font-size"));
         return (emSize * input);

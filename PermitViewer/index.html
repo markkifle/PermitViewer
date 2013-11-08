@@ -23,7 +23,9 @@
         <script src="scripts/map.js"></script>
         <script src="scripts/settings.js"></script>
         <script src="scripts/chart.js"></script>
-        <script src="scripts/app.js"></script>
+        <script src="scripts/piechart.js"></script>
+        <script src="scripts/barchart.js"></script>
+       <script src="scripts/app.js"></script>
 
     </head>
     <body>
@@ -69,7 +71,7 @@
         </div>
 
         <!--Drawer -->
-        <div data-role="drawer" id="left-drawer"  data-title="Permit Tools" data-views='["/", "drawer-map"]'>
+        <div data-role="drawer" id="left-drawer" data-title="Permit Tools" data-views='["/","drawer-map","drawer-barchart","drawer-piechart","drawer-settings", "drawer-about","drawer-help"]'>
             <header data-role="header">
                 <div data-role="navbar">
                     <span data-role="view-title"></span>
@@ -83,8 +85,22 @@
                         <li data-icon="globe">
                             <a href="#drawer-map" data-transition="none">Map</a>
                         </li>
-                        <li data-icon="chart">
-                            <a href="#drawer-chart" data-transition="none">Chart</a>
+                        <!--<li data-icon="chart">
+                        <a href="#drawer-chart" data-transition="none">Chart</a>
+                        </li>-->
+                    </ul>
+                </li>
+                <li>
+                    Charts
+                    <ul>
+                        <!-- <li data-icon="globe">
+                        <a href="#drawer-map" data-transition="none">Map</a>
+                        </li>-->
+                        <li data-icon="barchart">
+                            <a href="#drawer-barchart" data-transition="none">Bar Chart</a>
+                        </li>
+                        <li data-icon="pie">
+                            <a href="#drawer-piechart" data-transition="none">Pie Chart</a>
                         </li>
                     </ul>
                 </li>
@@ -147,40 +163,35 @@
             </div>
         </div>
 
-        <!-- Charts page -->
-        <div data-role="view" id="drawer-chart" data-title="Chart" 
-             data-init="app.chartService.initChart"
-             data-model="app.chartService.viewModel" 
-             data-hide="app.chartService.viewModel.unbindResizeEvent"
-             data-layout="drawer-layout" >
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a  data-role="backbutton" data-align="left"  id="backBtnCharts">Back</a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-            <div id="chartsViewWrap" data-role="content">
-                <div id="charts">
-                    <ul id="select-chart" data-index="0" data-role="buttongroup">
-                        <li>Bar</li>
-                        <li>Pie</li>
-                    </ul>
-                    <div class="chart-wrapper" >
-                        <div id="barchart"></div>
-                        <div id="piechart" style="display:none"></div>
-                    </div>
-                </div>
-            </div>
+        <!-- Pie Charts page -->
+        <div data-role="view" id="drawer-piechart" data-title="Pie Chart" 
+             data-show="app.pieChart.createPieChart"
+             data-hide="app.pieChart.unbindResizeEvent"
+             data-layout="drawer-layout"
+             data-stretch="true" >
+            
+            <div id="piechart"></div>
+        </div>
+
+        <!-- Bar Charts page -->
+        <div data-role="view" id="drawer-barchart" data-title="Bar Chart" 
+              data-show="app.barChart.createBarChart"
+             data-hide="app.barChart.unbindResizeEvent"
+             data-layout="drawer-layout"
+             data-stretch="true" >
+
+            <div id="barchart"></div>
         </div>
 
         <!-- Settings page -->
         <div data-role="view" id="drawer-settings" data-title="Settings" data-layout="drawer-layout" >
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a class="nav-button" data-role="backbutton" data-align="left"  id="backBtnSettings">Back</a>
-                    <span data-role="view-title"></span>
-                </div>
+            <!--<div data-role="header">
+            <div data-role="navbar">
+            <!--<a class="drawerButton" data-role="button" data-rel="drawer" data-click="app.openDrawer" data-icon="drawer-button" data-align="left"></a>
+            <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnSettings">Back</a>
+            <span data-role="view-title"></span>
             </div>
+            </div>-->
             <div id="settingsViewWrap" data-role="content">
                 <div id="settings">
                     <ul data-role="listview" data-style="inset" data-type="group">
@@ -327,12 +338,12 @@
 
         <!-- About View page -->
         <div data-role="view" id="drawer-about" data-title="About"  data-layout="drawer-layout" >
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a class="nav-button" data-role="backbutton" data-align="left">Back</a>
-                    <span data-role="view-title"></span>
-                </div>
+            <!--<div data-role="header">
+            <div data-role="navbar">
+            <a class="nav-button" data-role="backbutton" data-align="left">Back</a>
+            <span data-role="view-title"></span>
             </div>
+            </div>-->
             <div id="aboutViewWrap" data-role="content">
                 <div id="about">
                     <p class="aboutHeader">
@@ -385,12 +396,12 @@
 
         <!-- Help page -->
         <div data-role="view" id="drawer-help" data-title="Help" data-layout="drawer-layout" >
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnCharts">Back</a>
-                    <span data-role="view-title"></span>
-                </div>
+            <!--<div data-role="header">
+            <div data-role="navbar">
+            <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnCharts">Back</a>
+            <span data-role="view-title"></span>
             </div>
+            </div>-->
             <div id="helpViewWrap" data-role="content">
                 <div id="help">
                     <div>

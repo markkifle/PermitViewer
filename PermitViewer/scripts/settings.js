@@ -34,23 +34,19 @@
         
         isConstPermitChecked: function() {
             if ($('input[name$="btnCon"]').is(':checked')) {
-                //isConPermitChecked = true;
-                return true;
+                 return true;
             }
             else {
-                //isConPermitChecked = false;
                 return false;
             }
         },
         
         isOccupPermitChecked: function() {
             if ($('input[name$="btnOcc"]').is(':checked')) {
-                // isOccPermitChecked = true;
-                return true;
+                 return true;
             }
             else {
-                //isOccPermitChecked = false;
-                return false;
+                 return false;
             }
         },
         

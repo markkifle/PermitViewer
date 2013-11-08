@@ -27,8 +27,6 @@ body, html
 }
 
 /* left drawer */
-
-
 #left-drawer .km-navbar, 
 #left-drawer .km-content 
 {
@@ -418,12 +416,14 @@ select#bufferSize
 }
 
 /* Charts view */
-.barchart-wrapper, .barchart-wrapper .k-chart
-.chart-wrapper, .chart-wrapper .k-chart
+#charts, .chart-wrapper /* .k-chart, */
 {
-    height: auto;
+    height: 100%;
     width: 100%;
 }
+
+
+
 
 /*info view*/
 #about
