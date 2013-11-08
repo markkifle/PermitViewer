@@ -4,7 +4,7 @@
 
 
     app.barChart = {
-        createPieChart: function () {
+        createBarChart: function () {
             app.barChart.drawBarChart();
             app.barChart.bindResizeEvent();
         },
