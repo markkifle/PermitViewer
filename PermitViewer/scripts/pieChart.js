@@ -1,7 +1,10 @@
 (function (global) {
     var pieChart = null,
-        app = global.app = global.app || {};
-
+    permitChart, 
+    conPermits = [],
+    ocuPermits = [],
+    ward,  
+    app = global.app = global.app || {};
 
     app.pieChart = {
         createPieChart: function () {
@@ -10,7 +13,9 @@
         },
 
         drawPieChart: function () {
-            var $pieChart;
+            var $pieChart, that;
+            
+            that = this;
 
             if (pieChart !== null) {
                 pieChart.destroy();
@@ -18,9 +23,12 @@
             $pieChart = $("#piechart").empty();
     
             permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            conPermits = app.chartService.viewModel.getConPermitForCharts();
+            ocuPermits = app.chartService.viewModel.getOcuPermitForCharts();
+            ward = app.settingsService.viewModel.getWard();//get ward
             
-            //if ((permitChart==="conChart" && conPermits != null) ||
-            //    (permitChart==="occChart" && ocuPermits != null)) {
+            if ((permitChart==="conChart" && conPermits != null) ||
+                (permitChart==="occChart" && ocuPermits != null)) {
                 pieChart = $pieChart.kendoChart({
                     theme: global.app.chartsTheme,
                     renderAs: "svg",
@@ -62,19 +70,50 @@
                         format: "{0}"
                     }
                 }).data("kendoChart");
-                    
-            //if (pieChart)
-            //    that.refreshPieChart();
-            //}
+            }
+            if (pieChart)
+                that.refreshPieChart();
         },
-
-        bindResizeEvent: function () {
+        
+        refreshPieChart: function() {
+            permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            if (permitChart==="conChart" && conPermits != null) {
+                pieChart.setOptions({
+                    dataSource:{
+                        data:conPermits  
+                    }, title: {
+                        
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Construction Permits in Ward " + ward
+                    }
+                        
+                });
+            }
+            else if (permitChart==="occChart" && ocuPermits != null) {
+                pieChart.setOptions({
+                    dataSource:{
+                        data:ocuPermits  
+                    }, title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Occupancy Permits in Ward " + ward,
+                    }
+                });
+            }
+            pieChart.refresh();
+        },
+ 
+        
+        bindResizeEvent
+        : function () {
             //as the dataviz-s are complex elements they need redrow after window resize 
             //in order to position themselve on the right place and right size
             $(window).on("resize.pieChart", $.proxy(app.pieChart.drawPieChart, app.pieChart));
         },
 
-        unbindResizeEvent: function () {
+        unbindResizeEvent
+        : function () {
             //unbind the "resize event" to prevent redudntant calculations when the tab is not active
             $(window).off("resize.pieChart");
         }

@@ -1,7 +1,10 @@
 (function (global) {
     var barChart = null,
-        app = global.app = global.app || {};
-
+    permitChart, 
+    conPermitDS,
+    ocuPermitDS,
+    ward,  
+    app = global.app = global.app || {};
 
     app.barChart = {
         createBarChart: function () {
@@ -10,17 +13,22 @@
         },
 
         drawBarChart: function () {
-            var $barChart;
-
+            var $barChart, that;
+            
+            that = this;
+ 
             if (barChart !== null) {
                 barChart.destroy();
             }
             $barChart = $("#barchart").empty();
     
             permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            conPermitDS = app.chartService.viewModel.getConPermitDSForCharts();
+            ocuPermitDS = app.chartService.viewModel.getOcuPermitDSForCharts();
+            ward = app.settingsService.viewModel.getWard();//get ward
             
-            //if ((permitChart==="conChart" && conPermits != null) ||
-            //    (permitChart==="occChart" && ocuPermits != null)) {
+            if ((permitChart==="conChart" && conPermitDS != null) ||
+                (permitChart==="occChart" && ocuPermitDS != null)) {
                 barChart = $barChart.kendoChart({
                     theme: global.app.chartsTheme,
                     renderAs: "svg",
@@ -86,7 +94,37 @@
                     }
                     
                 }).data("kendoChart");
-          },
+                    
+                if (barChart)
+                    that.refreshBarChart();
+            }
+        },
+
+        refreshBarChart: function() {
+             permitChart = app.settingsService.viewModel.getCheckedPermitForCharts();
+            if (permitChart==="conChart" && conPermitDS != null) {
+                barChart.setOptions({
+                    dataSource: conPermitDS,  
+                    title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Construction Permits in Ward " + ward
+                    }
+                });
+            }
+            else if (permitChart==="occChart" && ocuPermitDS != null) {
+                barChart.setOptions({
+                    dataSource:ocuPermitDS,
+                    title: {
+                        position: "top",
+                        font:"0.79em sans-serif",
+                        text: "Occupancy Permits in Ward " + ward
+                       
+                    }
+                });
+            } 
+            barChart.refresh();  
+        },
 
         bindResizeEvent: function () {
             //as the dataviz-s are complex elements they need redrow after window resize 

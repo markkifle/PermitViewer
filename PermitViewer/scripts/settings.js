@@ -34,7 +34,7 @@
         
         isConstPermitChecked: function() {
             if ($('input[name$="btnCon"]').is(':checked')) {
-                 return true;
+                return true;
             }
             else {
                 return false;
@@ -43,18 +43,28 @@
         
         isOccupPermitChecked: function() {
             if ($('input[name$="btnOcc"]').is(':checked')) {
-                 return true;
+                return true;
             }
             else {
-                 return false;
+                return false;
             }
         },
         
+        setChartTheme : function(theme) {
+            global.app.chartsTheme = theme;
+        },
+
+        
         reloadChart : function() {
+            //requery data
             app.chartService.viewModel.queryConstPermit();
-            app.chartService.viewModel.queryOccupPermit();    
-            app.chartService.viewModel.createBarChart();
-            app.chartService.viewModel.createPieChart();   
+            app.chartService.viewModel.queryOccupPermit();  
+            //create charts
+            app.barChart.createBarChart();
+            app.pieChart.createPieChart();
+            
+            //app.chartService.viewModel.createBarChart();
+            //app.chartService.viewModel.createPieChart();   
         }
 
     });
@@ -80,8 +90,8 @@
             
             //Chart Selector
             $('input:radio[name=chart]').on("click", function() {
-                app.chartService.viewModel.refreshPieChart();
-                app.chartService.viewModel.refreshBarChart();
+                //app.chartService.viewModel.refreshPieChart();
+                //app.chartService.viewModel.refreshBarChart();
             });
             
             //Application Theme selector
@@ -93,7 +103,7 @@
             //Chart Theme selector
             $('input:radio[name=charttheme]').on("click", function() {
                 var checkedChartTheme = $('input[name=charttheme]:radio:checked');
-                app.chartService.viewModel.setChartTheme(checkedChartTheme.val());
+                app.settingsService.viewModel.setChartTheme(checkedChartTheme.val());
             });
 
             //setup queries for the charts
