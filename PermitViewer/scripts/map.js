@@ -99,8 +99,8 @@
                 var graphic = new Graphic(pt, symbol);
                 mapGraphicsLayer.add(graphic);
                 map.centerAndZoom(pt, 16);
-               // console.log(pt);
-               // console.log(map.spatialReference);
+                // console.log(pt);
+                // console.log(map.spatialReference);
             });
         },
         
@@ -429,12 +429,14 @@
                 loaderElement = app.application.pane.loader.element.find("h1");
                 parser.parse();
                 
-                esriConfig.defaults.io.useCors = true;            
+                esriConfig.defaults.io.useCors = true; 
+                esriConfig.defaults.io.corsEnabledServers.push("maps2.dcgis.dc.gov");
+                           
+                // fallback to proxy for non-CORS capable browsers
                 //esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
                 esriConfig.defaults.io.proxyUrl = "http://ddotwebfm01/proxy/proxy.ashx";
-                esriConfig.defaults.io.corsEnabledServers.push("maps2.dcgis.dc.gov");
                 //esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
- 
+                
                 //create a mobile popup
                 popup = new PopupMobile(null, domConstruct.create("div"));
 
