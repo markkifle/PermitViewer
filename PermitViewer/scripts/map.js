@@ -99,8 +99,8 @@
                 var graphic = new Graphic(pt, symbol);
                 mapGraphicsLayer.add(graphic);
                 map.centerAndZoom(pt, 16);
-                console.log(pt);
-                console.log(map.spatialReference);
+               // console.log(pt);
+               // console.log(map.spatialReference);
             });
         },
         
@@ -315,10 +315,16 @@
                                 loaderElement.text('Searching...').addClass("loaderHeading");  
                                 that.showLoading();
                                 if (app.settingsService.viewModel.isConstPermitChecked) {
-                                    dConstruction = constQTask.execute(conQuery);
+                                    dConstruction = constQTask.execute(conQuery, null, function(err) {
+                                        navigator.notification.alert(err.message, null, 'Error', 'Ok');
+                                        that.hideLoading();
+                                    });
                                 }
                                 if (app.settingsService.viewModel.isOccupPermitChecked) {
-                                    dOccupancy = occupQTask.execute(occQuery);
+                                    dOccupancy = occupQTask.execute(occQuery, null, function(err) {
+                                        navigator.notification.alert(err.message, null, 'Error', 'Ok');
+                                        that.hideLoading();
+                                    });
                                 }
                                 // console.log("deferreds: ", dConstruction, dOccupancy);
                                 dList = new DeferredList([dConstruction, dOccupancy]);
@@ -427,7 +433,7 @@
                 //esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
                 esriConfig.defaults.io.proxyUrl = "http://ddotwebfm01/proxy/proxy.ashx";
                 esriConfig.defaults.io.corsEnabledServers.push("maps2.dcgis.dc.gov");
-                // esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
+                //esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
  
                 //create a mobile popup
                 popup = new PopupMobile(null, domConstruct.create("div"));
