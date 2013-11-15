@@ -62,7 +62,6 @@
             //create charts
             app.barChart.createBarChart();
             app.pieChart.createPieChart();
-            
             //app.chartService.viewModel.createBarChart();
             //app.chartService.viewModel.createPieChart();   
         }
@@ -95,8 +94,8 @@
             });
             
             //Application Theme selector
-            $('input:radio[name=theme]').on("click", function() {
-                var checkedAppTheme = $('input[name=theme]:radio:checked');
+            $('input:radio[name=apptheme]').on("click", function() {
+                var checkedAppTheme = $('input[name=apptheme]:radio:checked');
                 app.application.skin(checkedAppTheme.val());
             });
  

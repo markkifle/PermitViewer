@@ -31,12 +31,12 @@ body, html
 #left-drawer .km-content 
 {
   
-    background-color: rgba(20, 20, 20, 0.90);
+  /*  background-color: rgba(20, 20, 20, 0.90);*/
 }
 
 #left-drawer
 {
-    background-color: rgba(102, 102, 102, 0.90);
+   /* background-color: rgba(102, 102, 102, 0.90);*/
 }
 
 .km-ios7 .km-navbar, .km-ios7 .km-tabstrip
