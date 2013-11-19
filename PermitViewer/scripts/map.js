@@ -395,20 +395,20 @@
         //Failed to get the acceleration
         onAccelerometerError: function(error) {
             //check if we're running in simulator
-            if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
-                // navigator.notification.alert(error, null, 'Error', 'Ok');
-                this.stopWatch.apply(this, arguments);
-            }
-            else 
+            //if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
+            //    // navigator.notification.alert(error, null, 'Error', 'Ok');
+            //    this.stopWatch.apply(this, arguments);
+            //}
+            //else 
                 navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
         },
         
         resizeMap: function() {
             if (map) {
-                $("#map-canvas").css("height", $("#mapcontent").css("height"));
-                $('#map-canvas').css("width", $("#mapcontent").css("width"));
-                map.reposition();
-                map.resize();
+                //$("#map-canvas").css("height", $("#mapcontent").css("height"));
+                //$('#map-canvas').css("width", $("#mapcontent").css("width"));
+                //map.reposition();
+                //map.resize();
             }  
         }
         

@@ -22,7 +22,7 @@
         <script src="scripts/appConfig.js"></script>
         <script src="scripts/map.js"></script>
         <script src="scripts/settings.js"></script>
-       <!-- <script src="scripts/chart.js"></script>-->
+        <!-- <script src="scripts/chart.js"></script>-->
         <script src="scripts/chartDatasource.js"></script>
         <script src="scripts/pieChart.js"></script>
         <script src="scripts/barChart.js"></script>
@@ -44,31 +44,34 @@
                     <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
             </div>
-            <div id="map-canvas">
-                <div id="map-geocode"></div>
-                <div id="map-near-me"></div>
-                <div id="map-home"></div>
-                <div id="map-toggle"></div>
-                <div id="map-clearGraphics">
-                    <!--  <a data-role="button" data-icon="clear"></a>-->
-                </div>
-
-                <div id="map-address" class="map-address-box">
-                    <div id="addressEntry">
-                        <input type="text" id="address" class="k-input" autocomplete="on" placeholder="Enter a valid DC address" />
+            <diV id="mapcontent">
+                <div id="map-canvas">
+                    <div id="map-geocode"></div>
+                    <div id="map-near-me"></div>
+                    <div id="map-home"></div>
+                    <div id="map-toggle"></div>
+                    <div id="map-clearGraphics">
+                        <!--  <a data-role="button" data-icon="clear"></a>-->
                     </div>
-                    <div id="sesrchBtnCont">
-                        <div style="float:right">
-                            <a id="sesrchBtn" data-role="button" data-icon="locate" class="nav-button" data-bind="click :onLocate" >Locate</a>
+
+                    <div id="map-address" class="map-address-box">
+                        <div id="addressEntry">
+                            <input type="text" id="address" class="k-input" autocomplete="on" placeholder="Enter a valid DC address" />
+                        </div>
+                        <div id="sesrchBtnCont">
+                            <div style="float:right">
+                                <a id="sesrchBtn" data-role="button" data-icon="locate" class="nav-button" data-bind="click :onLocate" >Locate</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="infoTap" data-align="center">
-                    <label>
-                        Double tap to get permit information
-                    </label>
+                    <div id="infoTap" data-align="center">
+                        <label>
+                            Double tap to get permit information
+                        </label>
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <!--Drawer -->
