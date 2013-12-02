@@ -434,8 +434,10 @@
                            
                 // fallback to proxy for non-CORS capable browsers
                 esriConfig.defaults.io.proxyUrl = "http://mobile.primesource.com/proxy.ashx";
-                //esriConfig.defaults.io.proxyUrl = "http://ddotwebfm01/proxy/proxy.ashx";
+                //esriConfig.defaults.io.proxyUrl = "http://10.83.49.44/proxy/proxy.ashx";
                 //esriConfig.defaults.io.proxyUrl = "http://mobile.ddot.dc.gov/proxy.ashx";
+                
+               // esriConfig.defaults.io.proxyUrl = "http://arcgis.ddot.dc.gov/proxy.ashx";
                 
                 //create a mobile popup
                 popup = new PopupMobile(null, domConstruct.create("div"));

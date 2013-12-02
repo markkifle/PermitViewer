@@ -57,7 +57,7 @@
                         visible: true,
                         position: "bottom",
                         labels: {
-                            font: "0.7em sans-serif",
+                            font: "0.75em sans-serif",
                         },
                         margin: {
                             bottom:30
@@ -107,7 +107,7 @@
                     dataSource: conPermitDS,  
                     title: {
                         position: "top",
-                        font:"0.79em sans-serif",
+                        font:"0.85em sans-serif",
                         text: "Construction Permits in Ward " + ward
                     }
                 });
@@ -117,7 +117,7 @@
                     dataSource:ocuPermitDS,
                     title: {
                         position: "top",
-                        font:"0.79em sans-serif",
+                        font:"0.85em sans-serif",
                         text: "Occupancy Permits in Ward " + ward
                        
                     }

@@ -26,23 +26,15 @@ body, html
     font-size: 1em;
 }
 
-/* left drawer */
-#left-drawer .km-navbar, 
-#left-drawer .km-content 
-{
-  
-  /*  background-color: rgba(20, 20, 20, 0.90);*/
-}
-
-#left-drawer
-{
-   /* background-color: rgba(102, 102, 102, 0.90);*/
-}
-
 .km-ios7 .km-navbar, .km-ios7 .km-tabstrip
 {
     background-color: rgba(244, 244, 244, 0.99);
 }
+
+/*.km-ios7 #left-drawer, .km-android #left-drawer, .km-blackberry #left-drawer
+{
+    background-color: #000;
+}*/
 
 .km-ios7 #left-drawer .km-view-title, .km-android #left-drawer .km-view-title, .km-blackberry #left-drawer .km-view-title
 {

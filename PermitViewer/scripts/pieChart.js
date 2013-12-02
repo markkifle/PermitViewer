@@ -36,7 +36,7 @@
                         visible: true,
                         position:"bottom",
                         labels: {
-                            font: "0.7em sans-serif",
+                            font: "0.8em sans-serif",
                         },
                         margin: {
                             bottom:30
@@ -84,7 +84,7 @@
                     }, title: {
                         
                         position: "top",
-                        font:"0.79em sans-serif",
+                        font:"0.85em sans-serif",
                         text: "Construction Permits in Ward " + ward
                     }
                         
@@ -96,7 +96,7 @@
                         data:ocuPermits  
                     }, title: {
                         position: "top",
-                        font:"0.79em sans-serif",
+                        font:"0.85em sans-serif",
                         text: "Occupancy Permits in Ward " + ward,
                     }
                 });
