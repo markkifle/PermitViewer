@@ -387,7 +387,7 @@
         },
  
         //resize map on success
-        onAccelerometerSuccess: function(acceleration) {
+        onAccelerometerSuccess: function() {
             var that = this;
             that.resizeMap();
         },
