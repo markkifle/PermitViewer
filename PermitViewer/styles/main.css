@@ -58,6 +58,16 @@ body, html
     color: #fff;
 }
 
+.km-ios7 .esriMobileNavigationBar {
+     top:20px;
+    
+}
+
+.km-ios7 .esriMobileInfoView {
+
+    top: 62px;
+}
+
 /*
 .km-ios #left-drawer .km-content, .km-android #left-drawer .km-content, .km-blackberry #left-drawer .km-content,
 .km-ios #left-drawer .km-list > li, .km-android #left-drawer .km-list > li, .km-blackberry #left-drawer .km-list > li,
