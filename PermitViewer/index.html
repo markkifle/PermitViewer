@@ -187,14 +187,7 @@
 
         <!-- Settings page -->
         <div data-role="view" id="drawer-settings" data-title="Settings" data-layout="drawer-layout" >
-            <!--<div data-role="header">
-            <div data-role="navbar">
-            <!--<a class="drawerButton" data-role="button" data-rel="drawer" data-click="app.openDrawer" data-icon="drawer-button" data-align="left"></a>
-            <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnSettings">Back</a>
-            <span data-role="view-title"></span>
-            </div>
-            </div>-->
-            <div id="settingsViewWrap" data-role="content">
+             <div id="settingsViewWrap" data-role="content">
                 <div id="settings">
                     <ul data-role="listview" data-style="inset" data-type="group">
                         <li>
@@ -228,11 +221,11 @@
                             <ul>
                                 <li>
                                     Construction Permits
-                                    <input data-role="switch" name="btnCon" id="btnCon" checked />
+                                    <input data-role="switch" name="btnCon" id="btnCon" checked type="checkbox" />
                                 </li>
                                 <li>
                                     Occupancy Permits
-                                    <input data-role="switch" name="btnOcc" id="btnOcc" checked />
+                                    <input data-role="switch" name="btnOcc" id="btnOcc" checked type="checkbox" />
                                 </li>
                             </ul>
                         </li>
@@ -241,13 +234,13 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input name="chart" id="conChart" type="radio" id="btnChartConst" value="conChart" checked  />
+                                        <input name="chart" id="conChart" type="radio"  value="conChart" checked  />
                                         Construction Permits
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="chart"  id="occChart" type="radio" id="btnChartOccup" value="occChart" />
+                                        <input name="chart"  id="occChart" type="radio"  value="occChart" />
                                         Occupancy Permits
                                     </label>
                                 </li>
@@ -277,13 +270,13 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input name="apptheme" id="defaultTheme" type="radio" id="btnDefAppTheme" value=""  checked/>
+                                        <input name="apptheme" id="defaultAppTheme" type="radio"  value=""  checked/>
                                         Default
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="apptheme" id="flatTheme" type="radio" id="btnFlatAppTheme" value="flat"  />
+                                        <input name="apptheme" id="flatAppTheme" type="radio" value="flat"  />
                                         Flat
                                     </label>
                                 </li>
@@ -294,19 +287,19 @@
                             <ul>
                                 <li>
                                     <label>
-                                        <input name="charttheme" id="defaultTheme" type="radio" id="btnDefChartTheme" value="default"  checked/>
+                                        <input name="charttheme" id="defaultTheme" type="radio"  value="default"  checked/>
                                         Default
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="charttheme" id="flatTheme" type="radio" id="btnFlatChartTheme" value="flat"  />
+                                        <input name="charttheme" id="flatTheme" type="radio" value="flat"  />
                                         Flat
                                     </label>
                                 </li>
                                 <li>
                                     <label>
-                                        <input name="charttheme" id="silverTheme" type="radio" id="btnSilverChartTheme" value="silver"  />
+                                        <input name="charttheme" id="silverTheme" type="radio" value="silver"  />
                                         Silver
                                     </label>
                                 </li>
@@ -340,12 +333,6 @@
 
         <!-- About View page -->
         <div data-role="view" id="drawer-about" data-title="About"  data-layout="drawer-layout" >
-            <!--<div data-role="header">
-            <div data-role="navbar">
-            <a class="nav-button" data-role="backbutton" data-align="left">Back</a>
-            <span data-role="view-title"></span>
-            </div>
-            </div>-->
             <div id="aboutViewWrap" data-role="content">
                 <div id="about">
                     <p class="aboutHeader">
@@ -386,7 +373,7 @@
                     <div class="mainDiv">
                         <div class="leftDiv">
                             <figure id="dc">
-                                <img src="styles/images/dcflag.png" />
+                                <img src="styles/images/dcflag.png" alt="" />
                             </figure>
                             <a href="#" onclick="window.open('http://dc.gov', '_blank')">
                                 Government of The District of Columbia
@@ -394,7 +381,7 @@
                         </div>
                         <div class="rightDiv">
                             <figure id="ddot">
-                                <img src="styles/images/ddotlogo.png" />
+                                <img src="styles/images/ddotlogo.png" alt=""/>
                             </figure>
                             <a  href="#" onclick="window.open('http://ddot.dc.gov', '_blank')">
                                 District Department of Transportaion
@@ -407,12 +394,6 @@
 
         <!-- Help page -->
         <div data-role="view" id="drawer-help" data-title="Help" data-layout="drawer-layout" >
-            <!--<div data-role="header">
-            <div data-role="navbar">
-            <a class="nav-button" data-role="backbutton" data-align="left" id="backBtnCharts">Back</a>
-            <span data-role="view-title"></span>
-            </div>
-            </div>-->
             <div id="helpViewWrap" data-role="content">
                 <div id="help">
                     <div>

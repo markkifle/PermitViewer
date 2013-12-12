@@ -15,10 +15,10 @@
         },
        
         getApplicationTheme: function() {
-            if ($('input[id$="defaultTheme"]').is(':checked')) {
+            if ($('input[id$="defaultAppTheme"]').is(':checked')) {
                 return "Default"; 
             }
-            else if ($('input[id$="flatTheme"]').is(':checked')) {
+            else if ($('input[id$="flatAppTheme"]').is(':checked')) {
                 return "Flat"; 
             }
         },
