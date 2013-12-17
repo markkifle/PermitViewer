@@ -43,29 +43,24 @@
                     <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
             </div>
-            <diV id="mapcontent">
-                <div id="map-canvas">
-                    <div id="map-geocode"></div>
-                    <div id="map-near-me"></div>
-                    <div id="map-home"></div>
-                    <div id="map-toggle"></div>
-                    <div id="map-clearGraphics"></div>
+            <div id="map-canvas">
+                <div id="map-geocode"></div>
+               
+                <div id="map-home"></div>
+                <div id="map-toggle"></div>
+                <div id="map-clearGraphics"></div>
 
-                    <div id="map-address" class="map-address-box">
-                        <div id="addressEntry">
-                            <input type="text" id="address" class="k-input" autocomplete="on" placeholder="Enter a valid DC address" />
-                        </div>
-                        <div id="sesrchBtnCont">
-                            <div style="float:right">
-                                <a id="sesrchBtn" data-role="button" data-icon="locate" class="nav-button" data-bind="click :onLocate" >Locate</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="infoTap" data-align="center">
-                        <label>
-                            Double tap to get permit information
-                        </label>
-                    </div>
+                <div id="map-search-wrap">
+                     <div id="map-near-me"></div>
+                    <form onsubmit="return false;">
+                        <input type="search" id="address" placeholder="Enter a valid DC address" />
+                        <input type="submit" id="searchBtn" value="" data-bind="click :onLocate" />
+                    </form>
+                </div>
+                <div id="infoTap" data-align="center">
+                    <label>
+                        Double tap to get permit information
+                    </label>
                 </div>
             </div>
         </div>
@@ -145,16 +140,14 @@
                 </div>
             </div>
 
-            <div id="addressListViewContent" data-role="content">
-                <div class="recordNumberLabel">
-                    <label id="recordLabel">No Records found!</label>
-                </div>
-                <ul class="addressListWrapper" data-role="listview" data-style="inset" data-type="group">
-                    <li>
-                        <ul id="addressList" data-template="addressesList-template" data-source="ds"></ul>
-                    </li>
-                </ul>
+            <div id="recordNumberLabel">
+                <label id="recordLabel">No Records Found!</label>
             </div>
+            <ul class="addressListWrapper" data-role="listview" data-style="inset" data-type="group">
+                <li>
+                    <ul id="addressList" data-template="addressesList-template" data-source="ds"></ul>
+                </li>
+            </ul>
         </div>
 
         <!-- Pie Charts page -->

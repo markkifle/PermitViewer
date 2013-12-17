@@ -72,7 +72,7 @@
         },
         
         onToggleGeocoder: function() {
-            $("#map-address").toggle();
+            $("#map-search-wrap").toggle();
             $("#infoTap").hide();
         },
         
@@ -239,7 +239,7 @@
                                         }
                                     });                                   
                                     that.hideLoading();
-                                    $("#recordLabel").html(recordCount + " records found.");
+                                    $("#recordLabel").html(recordCount + " Records Found");
                                     app.application.navigate("#drawer-addresslist");
                                 }
                             }
@@ -570,6 +570,7 @@
                     
                     map.on("dbl-click", function(e) {
                         $("#infoTap").hide();
+                        console.log(e.mapPoint);
                         app.locationService.viewModel.onClearGraphics();
                         app.locationService.viewModel.addGraphic(e.mapPoint, false);
                         //buffer location

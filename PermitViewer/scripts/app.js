@@ -6,11 +6,10 @@
     app.chartsTheme = defaultChartTheme;
  
     document.addEventListener("deviceready", function () {
-        var os = kendo.support.mobileOS;
-        var statusBarStyle = os.ios && os.flatVersion >= 700 ? "black-translucent" : "black";
-      
         navigator.splashscreen.hide();
-        app.application = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip", statusBarStyle : statusBarStyle });
+        StatusBar.overlaysWebView(false); //Turns off web view overlay.
+     
+        app.application = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip" });
 
         //get device info 
         app.model = device.model;
@@ -22,7 +21,7 @@
         //console.log(app.platform);
      
         //hide arrdess entry div	
-        $('#map-address').hide();  
+        $('#map-search-wrap').hide();  
 
         app.application.skin(mobileSkin);
         //initialize settings
