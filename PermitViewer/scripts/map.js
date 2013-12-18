@@ -593,17 +593,17 @@
                     }
                 }, false);
                 //Detect device and OS if android sart waching the accelerometer ...
-                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
+                //var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
                 //var deviceName = kendo.support.mobileOS.device; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
-                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+                //var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
                 //console.log(deviceOs);
                 //console.log(deviceName);
                 //console.log(isTablet);             
                 
                 //detect if it is android tablet
-                if (deviceOs === "android" && isTablet === "android") {
-                    app.locationService.viewModel.startWatch();
-                }                             
+                //if (deviceOs === "android" && isTablet === "android") {
+                //    app.locationService.viewModel.startWatch();
+                //}                             
                              
                 navigator.splashscreen.hide();
             });
