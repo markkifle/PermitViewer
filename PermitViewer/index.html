@@ -17,8 +17,6 @@
         <script src="kendo/js/kendo.mobile.min.js"></script>
         <script src="kendo/js/kendo.dataviz.mobile.min.js"></script>
         <script src="http://js.arcgis.com/3.7compact/"></script>
-
-        <script>var dojoConfig = { parseOnLoad: true }</script>
         <script src="scripts/appConfig.js"></script>
         <script src="scripts/map.js"></script>
         <script src="scripts/settings.js"></script>
@@ -35,7 +33,8 @@
              data-show="app.locationService.show" 
              data-hide="app.locationService.hide" 
              data-model="app.locationService.viewModel" 
-             data-stretch="true">
+             data-stretch="true"
+             data-layout="drawer-layout">
             <div data-role="header">
                 <div data-role="navbar">
                     <a class="drawerButton" data-role="button" data-rel="drawer" href="#left-drawer" data-icon="drawer-button" data-align="left"></a>
@@ -43,24 +42,24 @@
                     <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
             </div>
-            <div id="map-canvas">
-                <div id="map-geocode"></div>
-               
-                <div id="map-home"></div>
-                <div id="map-toggle"></div>
-                <div id="map-clearGraphics"></div>
-
-                <div id="map-search-wrap">
-                     <div id="map-near-me"></div>
-                    <form onsubmit="return false;">
-                        <input type="search" id="address" placeholder="Enter a valid DC address" />
-                        <input type="submit" id="searchBtn" value="" data-bind="click :onLocate" />
-                    </form>
-                </div>
-                <div id="infoTap" data-align="center">
-                    <label>
-                        Double tap to get permit information
-                    </label>
+            <div id="map-container"  data-role="content">
+                <div id="map-canvas">
+                    <div id="map-geocode"></div>
+                    <div id="map-home"></div>
+                    <div id="map-toggle"></div>
+                    <div id="map-clearGraphics"></div>
+                    <div id="map-search-wrap">
+                        <div id="map-near-me"></div>
+                        <form onsubmit="return false;">
+                            <input type="search" id="address" placeholder="Enter a valid DC address" />
+                            <input type="submit" id="searchBtn" value="" data-bind="click :onLocate" />
+                        </form>
+                    </div>
+                    <div id="infoTap" data-align="center">
+                        <label>
+                            Double tap to get permit information
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,7 +171,7 @@
 
         <!-- Settings page -->
         <div data-role="view" id="drawer-settings" data-title="Settings" data-layout="drawer-layout" >
-             <div id="settingsViewWrap" data-role="content">
+            <div id="settingsViewWrap" data-role="content">
                 <div id="settings">
                     <ul data-role="listview" data-style="inset" data-type="group">
                         <li>

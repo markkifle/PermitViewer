@@ -11,10 +11,8 @@
     mapGraphicsLayer,
     constPermitLayer,
     occupPermitLayer, 
-    conPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Intake Date</td><td class='txtDetail'>${IntakeDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Permit Type</td><td class='txtDetail'>${PermitTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Work Detail</td><td class='txtDetail' style='text-align:justify'>${WorkDetail}</td></tr>" + "<tr><td class='txtLabel'>Contractor Name</td><td class='txtDetail'>${ContrctorName}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
-    occPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Event</td><td class='txtDetail' style='text-align:justify'>${EventTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
-    supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize",
+    conPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Intake Date</td><td class='txtDetail'>${IntakeDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Permit Type</td><td class='txtDetail'>${PermitTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Work Detail</td><td class='txtDetail'>${WorkDetail}</td></tr>" + "<tr><td class='txtLabel'>Contractor Name</td><td class='txtDetail'>${ContrctorName}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
+    occPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Event</td><td class='txtDetail'>${EventTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
     app = global.app = global.app || {};
     
     LocationViewModel = kendo.data.ObservableObject.extend({
@@ -361,7 +359,7 @@
                 );
             });
         },
-
+     
         // Start watching the acceleration
         startWatch: function() {
             // Only start testing if watchID is currently null.
@@ -369,14 +367,14 @@
             if (that.watchID === null) {
                 // Update acceleration every 1 second
                 var options = { frequency: 1000 };
-                that.watchID = navigator.accelerometer.watchAcceleration(function() { 
-                    that.onAccelerometerSuccess.apply(that, arguments)
-                }, function(error) { 
-                    that.onAccelerometerError.apply(that, arguments)
+                that.watchID = navigator.accelerometer.watchAcceleration(function(acceleration) {
+                    that.resizemap();    
+                }, function() { 
+                    console.log('Error');
                 }, options);
             }
         },
-     
+           
         // Stop watching the acceleration
         stopWatch: function() {
             var that = this;
@@ -386,7 +384,7 @@
             }
         },
  
-        //resize map on success
+/*        //resize map on success
         onAccelerometerSuccess: function() {
             var that = this;
             that.resizeMap();
@@ -400,18 +398,20 @@
             //    this.stopWatch.apply(this, arguments);
             //}
             //else 
-                navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
+           // navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
         },
-        
+*/        
         resizeMap: function() {
             if (map) {
-                //$("#map-canvas").css("height", $("#mapcontent").css("height"));
-                //$('#map-canvas').css("width", $("#mapcontent").css("width"));
-                //map.reposition();
-                //map.resize();
+                $("#map-canvas").css("height", $("#map-container").css("height"));
+                $('#map-canvas').css("width", $("#map-container").css("width"));
+                map.reposition();
+                map.resize();
+                console.log($("#map-container").css("height"));
+                console.log($("#map-container").css("width"));
             }  
         }
-        
+                  
     });
       
     app.locationService = {
@@ -426,8 +426,8 @@
             ], function (dom, lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
                          Locator, Geocoder, LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
                          array, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Color, webMercatorUtils, Query, QueryTask, Deferred) {
-                loaderElement = app.application.pane.loader.element.find("h1");
                 parser.parse();
+                loaderElement = app.application.pane.loader.element.find("h1");
                 
                 esriConfig.defaults.io.useCors = true; 
                 esriConfig.defaults.io.corsEnabledServers.push("maps2.dcgis.dc.gov");
@@ -583,27 +583,62 @@
                 $("#map-clearGraphics").on("touchend", function() {
                     app.locationService.viewModel.onClearGraphics();   
                 });
+             
+                // on(window, resizeEvt, resizeMap);
+                //function resizeMap() {
+                    
+                //    adjustMapHeight();
+                //    map.resize();
+                //    map.reposition();
+                //}                           
                              
-                // Listen for orientation changes
-                window.addEventListener(orientationEvent, function () {
-                    // Announce the new orientation number
-                    if (map) {
-                        map.reposition();
-                        map.resize();
-                    }
-                }, false);
+                /*// listen for changes in orientation on the device
+                connect.connect(window, "deviceorientation", function(event) {
+                   
+                // motion of the device around the x axis
+                console.log(event.beta);
+                // motion of the device around the y axis
+                console.log(event.gamma);
+                // motion of the device around the z axis
+                console.log(event.alpha);
+                // Do something with the map...
+                if (map) {
+                console.log('Orientation changed');
+                $("#map-canvas").css("height", $("#map-container").css("height"));
+                $('#map-canvas').css("width", $("#map-container").css("width"));
+                map.reposition();
+                map.resize();
+                }
+                });*/
+                             
+                //window.addEventListener("deviceorientation", function(event) {
+                //   console.log('Orientation changed '+ event.beta);
+                //}, true);
+                             
+                //// Listen for orientation changes
+                //window.addEventListener(orientationEvent, function () {
+                //    // Announce the new orientation number
+                //    if (map) {
+                //        console.log('Orientation changed');
+                //        $("#map-canvas").css("height", $("#map-container").css("height"));
+                //        $('#map-canvas').css("width", $("#map-container").css("width"));
+                //        map.reposition();
+                //        map.resize();
+                //    }
+                //}, false);
+                             
                 //Detect device and OS if android sart waching the accelerometer ...
-                //var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
+                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
                 //var deviceName = kendo.support.mobileOS.device; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
-                //var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
                 //console.log(deviceOs);
                 //console.log(deviceName);
                 //console.log(isTablet);             
                 
                 //detect if it is android tablet
-                //if (deviceOs === "android" && isTablet === "android") {
-                //    app.locationService.viewModel.startWatch();
-                //}                             
+                if (deviceOs === "android" && isTablet === "android") {
+                    app.locationService.viewModel.startWatch();
+                }                             
                              
                 navigator.splashscreen.hide();
             });
