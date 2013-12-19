@@ -13,6 +13,7 @@
     occupPermitLayer, 
     conPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Intake Date</td><td class='txtDetail'>${IntakeDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Permit Type</td><td class='txtDetail'>${PermitTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Work Detail</td><td class='txtDetail'>${WorkDetail}</td></tr>" + "<tr><td class='txtLabel'>Contractor Name</td><td class='txtDetail'>${ContrctorName}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
     occPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Event</td><td class='txtDetail'>${EventTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
+    resizeEvt = (window.onorientationchange !== undefined && !has('android')) ? "orientationchange" : "resize",
     app = global.app = global.app || {};
     
     LocationViewModel = kendo.data.ObservableObject.extend({
@@ -384,23 +385,23 @@
             }
         },
  
-/*        //resize map on success
+        /*        //resize map on success
         onAccelerometerSuccess: function() {
-            var that = this;
-            that.resizeMap();
+        var that = this;
+        that.resizeMap();
         },
     
         //Failed to get the acceleration
         onAccelerometerError: function(error) {
-            //check if we're running in simulator
-            //if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
-            //    // navigator.notification.alert(error, null, 'Error', 'Ok');
-            //    this.stopWatch.apply(this, arguments);
-            //}
-            //else 
-           // navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
+        //check if we're running in simulator
+        //if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
+        //    // navigator.notification.alert(error, null, 'Error', 'Ok');
+        //    this.stopWatch.apply(this, arguments);
+        //}
+        //else 
+        // navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
         },
-*/        
+        */        
         resizeMap: function() {
             if (map) {
                 $("#map-canvas").css("height", $("#map-container").css("height"));
@@ -422,10 +423,10 @@
                 "esri/config","dojo/dom-construct","esri/dijit/PopupMobile","esri/InfoTemplate","esri/geometry/Extent","esri/geometry/Point", "esri/tasks/locator",
                 "esri/dijit/Geocoder", "esri/dijit/LocateButton","esri/SpatialReference","esri/symbols/PictureMarkerSymbol","esri/graphic",
                 "esri/layers/GraphicsLayer","esri/layers/FeatureLayer", "dojo/on","dojo/_base/array","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
-                "esri/symbols/SimpleMarkerSymbol","dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred","dojo/domReady!"
+                "esri/symbols/SimpleMarkerSymbol","dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "esri/sniff","dojo/domReady!"
             ], function (dom, lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
                          Locator, Geocoder, LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
-                         array, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Color, webMercatorUtils, Query, QueryTask, Deferred) {
+                         array, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Color, webMercatorUtils, Query, QueryTask, Deferred, has) {
                 parser.parse();
                 loaderElement = app.application.pane.loader.element.find("h1");
                 
@@ -570,7 +571,7 @@
                     
                     map.on("dbl-click", function(e) {
                         $("#infoTap").hide();
-                        console.log(e.mapPoint);
+                        // console.log(e.mapPoint);
                         app.locationService.viewModel.onClearGraphics();
                         app.locationService.viewModel.addGraphic(e.mapPoint, false);
                         //buffer location
@@ -583,7 +584,18 @@
                 $("#map-clearGraphics").on("touchend", function() {
                     app.locationService.viewModel.onClearGraphics();   
                 });
-             
+                            
+                on(window, resizeEvt, function() {
+                    if (map) {
+                        $("#map-canvas").css("height", $("#map-container").css("height"));
+                        $('#map-canvas').css("width", $("#map-container").css("width"));
+                        map.resize();
+                        map.reposition();
+                        //alert($("#map-canvas").css("height"));
+                        //console.log($("#map-canvas").css("width"));
+                    }  
+                });           
+                             
                 // on(window, resizeEvt, resizeMap);
                 //function resizeMap() {
                     
@@ -637,7 +649,7 @@
                 
                 //detect if it is android tablet
                 if (deviceOs === "android" && isTablet === "android") {
-                    app.locationService.viewModel.startWatch();
+                    //  app.locationService.viewModel.startWatch();
                 }                             
                              
                 navigator.splashscreen.hide();
