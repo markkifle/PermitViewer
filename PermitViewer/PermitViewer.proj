@@ -13,7 +13,7 @@
     <iOSStatusBarStyle>Default</iOSStatusBarStyle>
     <AndroidHardwareAcceleration>false</AndroidHardwareAcceleration>
     <BundleVersion>1.0.12</BundleVersion>
-    <iOSDisplayName>DDOT Permits Viewer</iOSDisplayName>
+    <iOSDisplayName>Permits</iOSDisplayName>
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
     <iOSBackgroundMode>location</iOSBackgroundMode>
     <AndroidVersionCode>1</AndroidVersionCode>
