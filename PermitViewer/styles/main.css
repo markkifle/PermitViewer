@@ -32,11 +32,6 @@ body, html
     background-color: rgba(244, 244, 244, 0.99);
 }
 
-/*.km-ios7 #left-drawer, .km-android #left-drawer, .km-blackberry #left-drawer
-{
-    background-color: #000;
-}*/
-
 .km-ios7 #left-drawer .km-view-title, .km-android #left-drawer .km-view-title, .km-blackberry #left-drawer .km-view-title
 {
     background-color: #4e4e4e;
@@ -58,16 +53,6 @@ body, html
 {
     color: #fff;
 }
-/*
-.km-ios7 .esriMobileNavigationBar {
-     top:20px;
-    
-}
-
-.km-ios7 .esriMobileInfoView {
-
-    top: 62px;
-}*/
 
 .km-drawer-button:before, .km-drawer-button:after { content: "\E077"; }
 .km-search:before, .km-search:after { content: "\E07F"; }
@@ -113,37 +98,6 @@ body, html
     font-size: 1.5rem;
 }
 
-/* IMAGE STYLES*/
-/*.img
-{
-    background-image: url(../styles/images/icenium.png);
-    background-repeat: no-repeat;
-    text-align: center;
-    width: 320px;
-    height: 193px;
-    margin: 0px auto;
-}
-.logo
-{
-    background-image: url(../styles/images/logo.png);
-    background-repeat: no-repeat;
-    width: 85px;
-    height: 60px;
-    margin: 40px auto;
-}*/
-
-/* BUTTON STYLES*/
-/*.buttonArea
-{
-    text-align: center;
-}
-
-.login-button
-{
-    width: 85%;
-    max-width: 300px;
-    line-height: 1.6em;
-}*/
 
 /* MAP STYLES*/
 #map-canvas
@@ -226,9 +180,8 @@ body, html
     -webkit-box-sizing: border-box;
     width:100%;
     vertical-align: middle;
+    display:none;
 }
-
-
 
 #address
 {    
@@ -251,11 +204,7 @@ body, html
     -webkit-background-clip: border-box;
     background-clip: border-box;
 }
-/*
-.km-ios7 #address
-{
-     border-color: #007aff;
-}*/
+
 
 #searchBtn {
  float: right;

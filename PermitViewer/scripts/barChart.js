@@ -35,7 +35,7 @@
                     seriesDefaults: {
                         labels: {
                             visible: true,
-                            font: "0.6em sans-serif",
+                            font: "0.75em sans-serif",
                             background: "transparent",
                             template: "#= value #"
                         },
@@ -66,14 +66,11 @@
                     categoryAxis: {
                         labels: {
                             visible: false,
-                            font : "0.7em  sans-serif",
-                            rotation: 45
-                        },
-                        field:"Date",
-                        labels : {
-                            visible:  false,
+                            font : "0.9em  sans-serif",
+                            rotation: 45,
                             format: "MMM"
-                        }
+                        },
+                        field:"Date"
                     },
                     valueAxis: [
                         {
@@ -90,7 +87,8 @@
                     ],
                     tooltip: {
                         visible: true,
-                        format: "{0}"
+                        format: "{0}",
+                        font: "1em sans-serif"
                     }
                     
                 }).data("kendoChart");
@@ -107,7 +105,7 @@
                     dataSource: conPermitDS,  
                     title: {
                         position: "top",
-                        font:"0.85em sans-serif",
+                        font:"1em sans-serif",
                         text: "Construction Permits in Ward " + ward
                     }
                 });
@@ -117,7 +115,7 @@
                     dataSource:ocuPermitDS,
                     title: {
                         position: "top",
-                        font:"0.85em sans-serif",
+                        font:"1em sans-serif",
                         text: "Occupancy Permits in Ward " + ward
                        
                     }

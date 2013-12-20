@@ -50,7 +50,7 @@
                     seriesDefaults: {
                         labels: {
                             visible: true,
-                            font: "0.58em sans-serif",
+                            font: "0.75em sans-serif",
                             color: "rgb(255, 255, 255)",
                             background: "transparent",
                             position: "center",
@@ -67,7 +67,9 @@
                     ],
                     tooltip: {
                         visible: true,
-                        format: "{0}"
+                        format: "{0}",
+                        font: "1em sans-serif"
+
                     }
                 }).data("kendoChart");
             }
@@ -84,7 +86,7 @@
                     }, title: {
                         
                         position: "top",
-                        font:"0.85em sans-serif",
+                        font:"1em sans-serif",
                         text: "Construction Permits in Ward " + ward
                     }
                         
@@ -96,7 +98,7 @@
                         data:ocuPermits  
                     }, title: {
                         position: "top",
-                        font:"0.85em sans-serif",
+                        font:"1em sans-serif",
                         text: "Occupancy Permits in Ward " + ward,
                     }
                 });

@@ -13,14 +13,13 @@
     occupPermitLayer, 
     conPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Intake Date</td><td class='txtDetail'>${IntakeDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Permit Type</td><td class='txtDetail'>${PermitTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Work Detail</td><td class='txtDetail'>${WorkDetail}</td></tr>" + "<tr><td class='txtLabel'>Contractor Name</td><td class='txtDetail'>${ContrctorName}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
     occPermitDetail = "<table style='width:100%'>" + "<tr><td class='txtLabel'>Address</td><td class='txtDetail'>${WorkLocationFullAddress}</td></tr>" + "<tr><td class='txtLabel'>Tracking Number</td><td class='txtDetail'>${TrackingNumber}</td></tr>" + "<tr><td class='txtLabel'>Permit Number</td><td class='txtDetail'>${PermitNumber}</td></tr>" + "<tr><td class='txtLabel'>Application Date</td><td class='txtDetail'>${ApplicationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Effective Date</td><td class='txtDetail'>${EffectiveDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Expiration Date</td><td class='txtDetail'>${ExpirationDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Issue Date</td><td class='txtDetail'>${IssueDate:DateFormat}</td></tr>" + "<tr><td class='txtLabel'>Status</td><td class='txtDetail'>${StatusDescription}</td></tr>" + "<tr><td class='txtLabel'>Event</td><td class='txtDetail'>${EventTypeDescription}</td></tr>" + "<tr><td class='txtLabel'>Owner Name</td><td class='txtDetail'>${OwnerName}</td></tr>" + "<tr><td class='txtLabel'>Permittee Name</td><td class='txtDetail'>${PermitteeName}</td></tr>" + "</table>",
-    resizeEvt = (window.onorientationchange !== undefined && !has('android')) ? "orientationchange" : "resize",
     app = global.app = global.app || {};
     
     LocationViewModel = kendo.data.ObservableObject.extend({
         
         isLoading: true,
         watchID : null,
-         
+        
         onNavigateHome: function () {
             var that = this,
             position;
@@ -84,16 +83,15 @@
         
         addGraphic: function(pt, isCusLoc) {
             require([
-                "esri/graphic", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/PictureMarkerSymbol",
+                "esri/graphic", "esri/symbols/PictureMarkerSymbol",
                 "dojo/_base/Color"
-            ], function (Graphic, SimpleMarkerSymbol, SimpleLineSymbol, PictureMarkerSymbol, Color) {
+            ], function (Graphic, PictureMarkerSymbol, Color) {
                 var symbol;
                 if (isCusLoc) {
                     symbol = new PictureMarkerSymbol("styles/images/bluedot.png", 40, 40);
                 }
                 else {
                     symbol = new PictureMarkerSymbol("styles/images/redPushpin.png", 25, 25);
-                    //  symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 12, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([210, 105, 30, 0.5]), 8), new Color([210, 105, 30, 0.9]));
                 }
                 var graphic = new Graphic(pt, symbol);
                 mapGraphicsLayer.add(graphic);
@@ -115,7 +113,7 @@
                 }
             });
         },     
- 
+        
         marGeolocate: function (searchText) {
             var that = this;
             loaderElement.text('Searching...').addClass("loaderHeading");  
@@ -369,9 +367,10 @@
                 // Update acceleration every 1 second
                 var options = { frequency: 1000 };
                 that.watchID = navigator.accelerometer.watchAcceleration(function(acceleration) {
+                    //console.log(acceleration);
                     that.resizemap();    
-                }, function() { 
-                    console.log('Error');
+                }, function(error) { 
+                    console.log('Error: ' + error);
                 }, options);
             }
         },
@@ -385,31 +384,14 @@
             }
         },
  
-        /*        //resize map on success
-        onAccelerometerSuccess: function() {
-        var that = this;
-        that.resizeMap();
-        },
-    
-        //Failed to get the acceleration
-        onAccelerometerError: function(error) {
-        //check if we're running in simulator
-        //if (device.uuid == "e0101010d38bde8e6740011221af335301010333" || device.uuid == "e0908060g38bde8e6740011221af335301010333") {
-        //    // navigator.notification.alert(error, null, 'Error', 'Ok');
-        //    this.stopWatch.apply(this, arguments);
-        //}
-        //else 
-        // navigator.notification.alert('Failed to get device orientation! Error Code: ' + error.code, null, 'Error', 'Ok');
-        },
-        */        
         resizeMap: function() {
             if (map) {
                 $("#map-canvas").css("height", $("#map-container").css("height"));
                 $('#map-canvas').css("width", $("#map-container").css("width"));
-                map.reposition();
                 map.resize();
-                console.log($("#map-container").css("height"));
-                console.log($("#map-container").css("width"));
+                map.reposition();
+                //alert($("#map-canvas").css("height"));
+                //alert($("#map-canvas").css("width"));
             }  
         }
                   
@@ -419,15 +401,20 @@
      
         initLocation: function () { 
             require([
-                "dojo/dom","dojo/_base/lang","dojo/parser","dojo/_base/connect", "esri/map", "esri/dijit/HomeButton", "esri/dijit/BasemapToggle",
-                "esri/config","dojo/dom-construct","esri/dijit/PopupMobile","esri/InfoTemplate","esri/geometry/Extent","esri/geometry/Point", "esri/tasks/locator",
-                "esri/dijit/Geocoder", "esri/dijit/LocateButton","esri/SpatialReference","esri/symbols/PictureMarkerSymbol","esri/graphic",
-                "esri/layers/GraphicsLayer","esri/layers/FeatureLayer", "dojo/on","dojo/_base/array","esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
-                "esri/symbols/SimpleMarkerSymbol","dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "esri/sniff","dojo/domReady!"
-            ], function (dom, lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
-                         Locator, Geocoder, LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
-                         array, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Color, webMercatorUtils, Query, QueryTask, Deferred, has) {
+                "dojo/_base/lang","dojo/parser","dojo/_base/connect", "esri/map", "esri/dijit/HomeButton", "esri/dijit/BasemapToggle",
+                "esri/config","dojo/dom-construct","esri/dijit/PopupMobile","esri/InfoTemplate","esri/geometry/Extent","esri/geometry/Point", 
+                "esri/dijit/LocateButton","esri/SpatialReference","esri/symbols/PictureMarkerSymbol","esri/graphic",
+                "esri/layers/GraphicsLayer","esri/layers/FeatureLayer", "dojo/on","dojo/_base/array",
+                "dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "dojo/domReady!"
+            ], function (lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
+                         LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
+                         array, Color, webMercatorUtils, Query, QueryTask, Deferred) {
                 parser.parse();
+                           
+                //Detect device and OS if android sart waching the accelerometer ...
+                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
+                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+ 
                 loaderElement = app.application.pane.loader.element.find("h1");
                 
                 esriConfig.defaults.io.useCors = true; 
@@ -441,7 +428,7 @@
 
                 map = new Map("map-canvas", {
                     basemap: "topo",
-                    center: [-77.032, 38.906],
+                    center: [-77.03, 38.91],
                     zoom: 16,
                     infoWindow: popup,
                     logo:false,
@@ -501,7 +488,7 @@
                         tapRadius: 10,
                         type: "tap"
                     }, settings);
-              
+                    
                     map.on("click", function(e) {
                         $("#infoTap").hide();
                         //if there are features in mapGraphicsLayer and the touch is with in the extent of the buffer
@@ -579,79 +566,18 @@
                     });
                     
                     map.disableDoubleClickZoom();
+                    
+                    //detect if it is android tablet
+                    if (deviceOs === "android" && isTablet === "android") {
+                         app.locationService.viewModel.resizeMap();
+                        app.locationService.viewModel.startWatch();
+                    } 
                 });
                
                 $("#map-clearGraphics").on("touchend", function() {
                     app.locationService.viewModel.onClearGraphics();   
                 });
-                            
-                on(window, resizeEvt, function() {
-                    if (map) {
-                        $("#map-canvas").css("height", $("#map-container").css("height"));
-                        $('#map-canvas').css("width", $("#map-container").css("width"));
-                        map.resize();
-                        map.reposition();
-                        //alert($("#map-canvas").css("height"));
-                        //console.log($("#map-canvas").css("width"));
-                    }  
-                });           
-                             
-                // on(window, resizeEvt, resizeMap);
-                //function resizeMap() {
-                    
-                //    adjustMapHeight();
-                //    map.resize();
-                //    map.reposition();
-                //}                           
-                             
-                /*// listen for changes in orientation on the device
-                connect.connect(window, "deviceorientation", function(event) {
-                   
-                // motion of the device around the x axis
-                console.log(event.beta);
-                // motion of the device around the y axis
-                console.log(event.gamma);
-                // motion of the device around the z axis
-                console.log(event.alpha);
-                // Do something with the map...
-                if (map) {
-                console.log('Orientation changed');
-                $("#map-canvas").css("height", $("#map-container").css("height"));
-                $('#map-canvas').css("width", $("#map-container").css("width"));
-                map.reposition();
-                map.resize();
-                }
-                });*/
-                             
-                //window.addEventListener("deviceorientation", function(event) {
-                //   console.log('Orientation changed '+ event.beta);
-                //}, true);
-                             
-                //// Listen for orientation changes
-                //window.addEventListener(orientationEvent, function () {
-                //    // Announce the new orientation number
-                //    if (map) {
-                //        console.log('Orientation changed');
-                //        $("#map-canvas").css("height", $("#map-container").css("height"));
-                //        $('#map-canvas').css("width", $("#map-container").css("width"));
-                //        map.reposition();
-                //        map.resize();
-                //    }
-                //}, false);
-                             
-                //Detect device and OS if android sart waching the accelerometer ...
-                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
-                //var deviceName = kendo.support.mobileOS.device; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
-                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
-                //console.log(deviceOs);
-                //console.log(deviceName);
-                //console.log(isTablet);             
-                
-                //detect if it is android tablet
-                if (deviceOs === "android" && isTablet === "android") {
-                    //  app.locationService.viewModel.startWatch();
-                }                             
-                             
+ 
                 navigator.splashscreen.hide();
             });
         },

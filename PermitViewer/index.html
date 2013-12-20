@@ -42,23 +42,24 @@
                     <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
             </div>
-            <div id="map-container"  data-role="content">
-                <div id="map-canvas"></div>
-                <div id="map-geocode"></div>
-                <div id="map-home"></div>
-                <div id="map-toggle"></div>
-                <div id="map-clearGraphics"></div>
-                <div id="map-search-wrap">
-                    <div id="map-near-me"></div>
-                    <form onsubmit="return false;">
-                        <input type="search" id="address" placeholder="Enter a valid DC address" />
-                        <input type="submit" id="searchBtn" value="" data-bind="click :onLocate" />
-                    </form>
-                </div>
-                <div id="infoTap" data-align="center">
-                    <label>
-                        Double tap to get permit information
-                    </label>
+            <div id="map-container" data-role="content">
+                <div id="map-canvas">
+                    <div id="map-geocode"></div>
+                    <div id="map-home"></div>
+                    <div id="map-toggle"></div>
+                    <div id="map-clearGraphics"></div>
+                    <div id="map-search-wrap">
+                        <div id="map-near-me"></div>
+                        <form onsubmit="return false;">
+                            <input type="search" id="address" placeholder="Enter a valid DC address" />
+                            <input type="submit" id="searchBtn" value="" data-bind="click :onLocate" />
+                        </form>
+                    </div>
+                    <div id="infoTap" data-align="center">
+                        <label>
+                            Double tap to get permit information
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

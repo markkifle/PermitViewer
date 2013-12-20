@@ -69,7 +69,7 @@
                     });
                     app.locationService.viewModel.hideLoading();
                 }, function(err) {
-                    console.log(err);
+                    //console.log(err);
                     app.locationService.viewModel.hideLoading();
                 });
             }
@@ -136,7 +136,7 @@
                   
                     app.locationService.viewModel.hideLoading();
                 }, function(err) {
-                    console.log(err);
+                    //console.log(err);
                     app.locationService.viewModel.hideLoading();
                 });
             }
