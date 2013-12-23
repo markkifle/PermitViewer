@@ -5,7 +5,7 @@
     app = global.app = global.app || {};
     
     SettingsViewModel = kendo.data.ObservableObject.extend({
-    
+      
         getWard: function () {
             return ward;
         },

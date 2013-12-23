@@ -3,15 +3,21 @@
     <head>
         <title>DDOT Permits</title>
         <meta charset="utf-8" />
-        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="kendo/styles/kendo.dataviz.mobile.min.css" rel="stylesheet" />
         <link href="kendo/styles/kendo.dataviz.default.min.css" rel="stylesheet" />
         <link href="kendo/styles/kendo.dataviz.flat.min.css" rel="stylesheet" />
         <link href="kendo/styles/kendo.dataviz.silver.min.css" rel="stylesheet" />
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
 
         <link href="styles/main.css" rel="stylesheet" />
         <link rel="stylesheet" href="http://js.arcgis.com/3.7/js/esri/css/esri.css" />
 
+        <script>
+            var dojoConfig = {
+                //Required if you have dojo widgets(aka.dijits) in your HTML 
+                parseOnLoad: true
+            };
+        </script>
         <script src="cordova.js"></script>
         <script src="kendo/js/jquery.min.js"></script>
         <script src="kendo/js/kendo.mobile.min.js"></script>
@@ -42,9 +48,9 @@
                     <a data-align="right" data-role="button" class="nav-button" data-bind="click :onToggleGeocoder" data-icon="search"></a>
                 </div>
             </div>
-            <div id="map-container" data-role="content">
-                <div id="map-canvas">
-                    <div id="map-geocode"></div>
+            <div id="map-container" data-role="content" >
+                <div id="map-canvas"  >
+                    <!--<div id="map-geocode"></div>-->
                     <div id="map-home"></div>
                     <div id="map-toggle"></div>
                     <div id="map-clearGraphics"></div>

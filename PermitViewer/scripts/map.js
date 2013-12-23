@@ -358,43 +358,21 @@
                 );
             });
         },
-     
-        // Start watching the acceleration
-        startWatch: function() {
-            // Only start testing if watchID is currently null.
-            var that = this;
-            if (that.watchID === null) {
-                // Update acceleration every 1 second
-                var options = { frequency: 1000 };
-                that.watchID = navigator.accelerometer.watchAcceleration(function(acceleration) {
-                    //console.log(acceleration);
-                    that.resizemap();    
-                }, function(error) { 
-                    console.log('Error: ' + error);
-                }, options);
-            }
-        },
-           
-        // Stop watching the acceleration
-        stopWatch: function() {
-            var that = this;
-            if (that.watchID !== null) {
-                navigator.accelerometer.clearWatch(that.watchID);
-                that.watchID = null;
-            }
-        },
- 
+        
         resizeMap: function() {
-            if (map) {
+            var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
+            var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
+            //detect if it is android tablet
+            if (deviceOs === "android" && isTablet === "android") {
+               /* dijit.byId("map-container").resize();
                 $("#map-canvas").css("height", $("#map-container").css("height"));
                 $('#map-canvas').css("width", $("#map-container").css("width"));
+                console.log($("#map-canvas").css("height"));
+                console.log($("#map-canvas").css("width"));*/
                 map.resize();
                 map.reposition();
-                //alert($("#map-canvas").css("height"));
-                //alert($("#map-canvas").css("width"));
             }  
         }
-                  
     });
       
     app.locationService = {
@@ -405,15 +383,11 @@
                 "esri/config","dojo/dom-construct","esri/dijit/PopupMobile","esri/InfoTemplate","esri/geometry/Extent","esri/geometry/Point", 
                 "esri/dijit/LocateButton","esri/SpatialReference","esri/symbols/PictureMarkerSymbol","esri/graphic",
                 "esri/layers/GraphicsLayer","esri/layers/FeatureLayer", "dojo/on","dojo/_base/array",
-                "dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "dojo/domReady!"
+                "dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "dijit/layout/BorderContainer","dijit/layout/ContentPane","dojo/domReady!"
             ], function (lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
                          LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
                          array, Color, webMercatorUtils, Query, QueryTask, Deferred) {
                 parser.parse();
-                           
-                //Detect device and OS if android sart waching the accelerometer ...
-                var deviceOs = kendo.support.mobileOS.name; //Returns the current os name identificator, can be "ios", "android", "blackberry", "windows", "webos", "meego".
-                var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
  
                 loaderElement = app.application.pane.loader.element.find("h1");
                 
@@ -566,12 +540,6 @@
                     });
                     
                     map.disableDoubleClickZoom();
-                    
-                    //detect if it is android tablet
-                    if (deviceOs === "android" && isTablet === "android") {
-                         app.locationService.viewModel.resizeMap();
-                        app.locationService.viewModel.startWatch();
-                    } 
                 });
                
                 $("#map-clearGraphics").on("touchend", function() {
