@@ -1,5 +1,6 @@
 var appConfig = {
-
+    //base map
+    baseMapUrl: 'http://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/DC_Basemap_WebMercator/MapServer',//basemap
     // geometry service
     gsvcURL: 'http://maps2.dcgis.dc.gov/dcgis/rest/services/Utilities/Geometry/GeometryServer',
     // MAR geocode service

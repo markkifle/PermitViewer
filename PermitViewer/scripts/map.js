@@ -4,7 +4,8 @@
     ds,
     geoLocate,
     loaderElement,
-    basemapToggle,
+    //basemapToggle,
+    baseMapLayer,
     LocationViewModel,
     addressViewModel,
     popup,
@@ -40,7 +41,7 @@
                 function (error) {
                     //default map coordinates    
                     require(["esri/geometry/webMercatorUtils", "esri/geometry/Point", "esri/SpatialReference"], function(webMercatorUtils, Point, SpatialReference) {
-                        position = webMercatorUtils.geographicToWebMercator(new Point(-77.032, 38.906, new esri.SpatialReference({ wkid: 4326 })));
+                        position = webMercatorUtils.geographicToWebMercator(new Point(-77.032, 38.906, new esri.SpatialReference({ wkid: 3857 })));
                     });
                     map.centerAndZoom(position, 16);
                     that.isLoading = false;
@@ -364,7 +365,7 @@
             var isTablet = kendo.support.mobileOS.tablet; //Returns the current mobile device identificator, can be "fire", "android", "iphone", "ipad", "meego", "webos", "blackberry", "playbook", "winphone", "windows".
             //detect if it is android tablet
             if (deviceOs === "android" && isTablet === "android") {
-               /* dijit.byId("map-container").resize();
+                /* dijit.byId("map-container").resize();
                 $("#map-canvas").css("height", $("#map-container").css("height"));
                 $('#map-canvas').css("width", $("#map-container").css("width"));
                 console.log($("#map-canvas").css("height"));
@@ -379,12 +380,12 @@
      
         initLocation: function () { 
             require([
-                "dojo/_base/lang","dojo/parser","dojo/_base/connect", "esri/map", "esri/dijit/HomeButton", "esri/dijit/BasemapToggle",
+                "dojo/_base/lang","dojo/parser","dojo/_base/connect", "esri/map","esri/layers/ArcGISTiledMapServiceLayer", "esri/dijit/HomeButton", "esri/dijit/BasemapToggle",
                 "esri/config","dojo/dom-construct","esri/dijit/PopupMobile","esri/InfoTemplate","esri/geometry/Extent","esri/geometry/Point", 
                 "esri/dijit/LocateButton","esri/SpatialReference","esri/symbols/PictureMarkerSymbol","esri/graphic",
                 "esri/layers/GraphicsLayer","esri/layers/FeatureLayer", "dojo/on","dojo/_base/array",
                 "dojo/_base/Color","esri/geometry/webMercatorUtils","esri/tasks/query","esri/tasks/QueryTask","dojo/Deferred", "dijit/layout/BorderContainer","dijit/layout/ContentPane","dojo/domReady!"
-            ], function (lang, parser, connect, Map, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
+            ], function (lang, parser, connect, Map, ArcGISTiledMapServiceLayer, HomeButton, BasemapToggle, esriConfig, domConstruct, PopupMobile, InfoTemplate, Extent, Point,
                          LocateButton, SpatialReference, PictureMarkerSymbol, Graphic, GraphicsLayer, FeatureLayer, on,
                          array, Color, webMercatorUtils, Query, QueryTask, Deferred) {
                 parser.parse();
@@ -401,14 +402,17 @@
                 popup = new PopupMobile(null, domConstruct.create("div"));
 
                 map = new Map("map-canvas", {
-                    basemap: "topo",
+                    basemap:"topo",
                     center: [-77.03, 38.91],
                     zoom: 16,
                     infoWindow: popup,
                     logo:false,
                     slider:false
                 });
-                     
+                              
+                baseMapLayer = new ArcGISTiledMapServiceLayer(appConfig.baseMapUrl);
+                map.addLayer(baseMapLayer); 
+                             
                 geoLocate = new LocateButton({
                     map: map
                 }, "map-near-me");
@@ -419,13 +423,13 @@
                 }, "map-home");
                 homeButton.startup();
 
-                basemapToggle = new BasemapToggle({
-                    map: map,
-                    basemap: "satellite"
-                }, "map-toggle");
-                basemapToggle.startup();
-                basemapToggle.hide();
-               
+                //basemapToggle = new BasemapToggle({
+                //    map: map,
+                //    basemap: "satellite"
+                //}, "map-toggle");
+                //basemapToggle.startup();
+                //basemapToggle.hide();
+                          
                 on(map, "load", function() {
                     //add Feature Layers
                     var conInfoTemplate = new InfoTemplate('<b>Construction Permit</b>', conPermitDetail);
@@ -444,7 +448,7 @@
                     var selectionSymbol = new PictureMarkerSymbol('styles/images/centerOnTarget.png', 40, 40);
                     constPermitLayer.setSelectionSymbol(selectionSymbol);
                     occupPermitLayer.setSelectionSymbol(selectionSymbol);
-                   
+                    
                     //Add layers
                     map.addLayers([constPermitLayer, occupPermitLayer]);
                     mapGraphicsLayer = new GraphicsLayer();
