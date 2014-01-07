@@ -15,7 +15,8 @@
     <BundleVersion>1.0.12</BundleVersion>
     <iOSDisplayName>Permits</iOSDisplayName>
     <iOSDeviceFamily>1;2</iOSDeviceFamily>
-    <iOSBackgroundMode>location</iOSBackgroundMode>
+    <iOSBackgroundMode>
+    </iOSBackgroundMode>
     <AndroidVersionCode>1</AndroidVersionCode>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Telerik\ICE\Tools\Mobile\MobileTools.targets" />
