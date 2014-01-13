@@ -6,7 +6,7 @@
     document.addEventListener("orientationchange", app.locationService.viewModel.resizeMap);
    
     document.addEventListener("deviceready", function () {
-        navigator.splashscreen.hide();
+       // navigator.splashscreen.hide();
         StatusBar.overlaysWebView(false); //Turns off web view overlay.
         app.application = new kendo.mobile.Application(document.body, { transition: "slide" });
 /*

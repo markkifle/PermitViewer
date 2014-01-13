@@ -39,7 +39,7 @@
                             font: "0.8em sans-serif",
                         },
                         margin: {
-                            bottom:30
+                            bottom:35
                         },
                     },
                     chartArea: {

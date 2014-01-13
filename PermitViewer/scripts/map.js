@@ -335,7 +335,7 @@
                                     else {
                                         constructionPermits = results[0][1].features; 
                                         array.forEach(constructionPermits, function(feat) {
-                                            feat.setSymbol(new PictureMarkerSymbol('styles/images/cone.png', 25, 25))
+                                            feat.setSymbol(new PictureMarkerSymbol('styles/images/roadworks.png', 25, 25))
                                             mapGraphicsLayer.add(feat);
                                         });
                                     }
@@ -345,7 +345,7 @@
                                     else {
                                         occupancyPermits = results[1][1].features;  
                                         array.forEach(occupancyPermits, function(feat) {
-                                            feat.setSymbol(new PictureMarkerSymbol('styles/images/roadworks.png', 25, 25))                                            
+                                            feat.setSymbol(new PictureMarkerSymbol('styles/images/cone.png', 25, 25))                                            
                                             mapGraphicsLayer.add(feat);
                                         });
                                     }

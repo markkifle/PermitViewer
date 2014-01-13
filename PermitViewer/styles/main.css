@@ -331,10 +331,20 @@ select#bufferSize
 }
 
 /* Charts view */
-#charts, .chart-wrapper /* .k-chart, */
+.chart-wrapper .k-chart
 {
     height: 100%;
     width: 100%;
+ }
+
+#barchart> svg {
+    width: 100%;
+    height: 100%;
+}
+
+#piechart> svg {
+    width: 100%;
+    height: 100%;
 }
 
 /*info view*/

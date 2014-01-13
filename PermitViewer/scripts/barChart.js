@@ -57,10 +57,10 @@
                         visible: true,
                         position: "bottom",
                         labels: {
-                            font: "0.75em sans-serif",
+                            font: "0.8em sans-serif",
                         },
                         margin: {
-                            bottom:30
+                            bottom:35
                         }
                     },
                     categoryAxis: {
