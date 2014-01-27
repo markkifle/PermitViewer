@@ -11,7 +11,8 @@
         StatusBar.backgroundColorByHexString("#F4F4F4");
         StatusBar.styleDefault();
         app.application = new kendo.mobile.Application(document.body, { transition: "slide" });
-/*
+       
+        /*
         //get device info 
         app.cordova = device.cordova;
         app.platform = device.platform;
@@ -23,7 +24,8 @@
         console.log(app.platform);
         console.log(app.uuid);
         console.log(app.version);
-        console.log(app.model);*/
+        console.log(app.model);
+        */
   
         //hide arrdess entry div	
         //$('#map-search-wrap').hide();  
