@@ -8,6 +8,8 @@
     document.addEventListener("deviceready", function () {
        // navigator.splashscreen.hide();
         StatusBar.overlaysWebView(false); //Turns off web view overlay.
+        StatusBar.backgroundColorByHexString("#F4F4F4");
+        StatusBar.styleDefault();
         app.application = new kendo.mobile.Application(document.body, { transition: "slide" });
 /*
         //get device info 

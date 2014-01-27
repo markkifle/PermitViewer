@@ -26,10 +26,24 @@ body, html
     font-size: 1em;
 }
 
+.km-ios7 .km-header .km-navbar
+{
+    background-color: rgba(244, 244, 244, 0.99);
+}
+/*
+.km-on-ios .km-header .km-widget,
+.km-on-ios .km-header .km-view-title
+{
+    color: white;
+}
+
+
 .km-ios7 .km-navbar, .km-ios7 .km-tabstrip
 {
     background-color: rgba(244, 244, 244, 0.99);
 }
+*/
+
 /*
 .km-ios7 #left-drawer .km-view-title, .km-android #left-drawer .km-view-title, .km-blackberry #left-drawer .km-view-title
 {
